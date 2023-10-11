@@ -1,4 +1,3 @@
-using System.Globalization;
 using Domain;
 using Microsoft.AspNetCore.Identity;
 
@@ -6,111 +5,255 @@ namespace Persistence
 {
     public class Seed
     {
-        public static async Task SeedData(DataContext context, UserManager<AppUser> userManager)
+        public static async Task SeedData(DataContext context,
+            UserManager<AppUser> userManager)
         {
-            if(!userManager.Users.Any())
+            if (!userManager.Users.Any() && !context.Activities.Any())
             {
-                var users = new List<AppUser>{
-                    new() {DisplayName="Akhilesh", UserName="akhilesh", Email="akhilesh@test.com"},
-                    new() {DisplayName="Manisman", UserName="manisman", Email="manisman@test.com"},
-                    new() {DisplayName="Vishal", UserName="vishal", Email="vishal@test.com"},
+                var users = new List<AppUser>
+                {
+                    new AppUser
+                    {
+                        DisplayName = "Vishal",
+                        UserName = "vishal",
+                        Email = "vishal@test.com"
+                    },
+                    new AppUser
+                    {
+                        DisplayName = "Prakash",
+                        UserName = "prakash",
+                        Email = "prakash@test.com"
+                    },
+                    new AppUser
+                    {
+                        DisplayName = "Manisman",
+                        UserName = "manisman",
+                        Email = "manisman@test.com"
+                    },
                 };
 
                 foreach (var user in users)
                 {
                     await userManager.CreateAsync(user, "Pa$$w0rd");
                 }
+
+                var activities = new List<Activity>
+                {
+                    new Activity
+                    {
+                        Title = "ENG vs NZ",
+                        Date = DateTime.UtcNow.AddMonths(-2),
+                        Description = "Activity 2 months ago",
+                        Category = "cricket",
+                        City = "Ahmedabad",
+                        Venue = "Something stadium",
+                        Attendees = new List<ActivityAttendee>
+                        {
+                            new ActivityAttendee
+                            {
+                                AppUser = users[0],
+                                IsHost = true
+                            }
+                        }
+                    },
+                    new Activity
+                    {
+                        Title = "PAK vs NTL",
+                        Date = DateTime.UtcNow.AddMonths(-1),
+                        Description = "Activity 1 month ago",
+                        Category = "cricket",
+                        City = "Hyderabad",
+                        Venue = "Something stadium",
+                        Attendees = new List<ActivityAttendee>
+                        {
+                            new ActivityAttendee
+                            {
+                                AppUser = users[0],
+                                IsHost = true
+                            },
+                            new ActivityAttendee
+                            {
+                                AppUser = users[1],
+                                IsHost = false
+                            },
+                        }
+                    },
+                    new Activity
+                    {
+                        Title = "AFG vs BANG",
+                        Date = DateTime.UtcNow.AddMonths(1),
+                        Description = "Activity 1 month in future",
+                        Category = "cricket",
+                        City = "Dharmsala",
+                        Venue = "Something stadium",
+                        Attendees = new List<ActivityAttendee>
+                        {
+                            new ActivityAttendee
+                            {
+                                AppUser = users[2],
+                                IsHost = true
+                            },
+                            new ActivityAttendee
+                            {
+                                AppUser = users[1],
+                                IsHost = false
+                            },
+                        }
+                    },
+                    new Activity
+                    {
+                        Title = "IND vs PAK",
+                        Date = DateTime.UtcNow.AddMonths(2),
+                        Description = "Activity 2 months in future",
+                        Category = "cricket",
+                        City = "Ahmedabad",
+                        Venue = "Something stadium",
+                        Attendees = new List<ActivityAttendee>
+                        {
+                            new ActivityAttendee
+                            {
+                                AppUser = users[0],
+                                IsHost = true
+                            },
+                            new ActivityAttendee
+                            {
+                                AppUser = users[2],
+                                IsHost = false
+                            },
+                        }
+                    },
+                    new Activity
+                    {
+                        Title = "SA vs AFG",
+                        Date = DateTime.UtcNow.AddMonths(3),
+                        Description = "Activity 3 months in future",
+                        Category = "cricket",
+                        City = "Delhi",
+                        Venue = "Something stadium",
+                        Attendees = new List<ActivityAttendee>
+                        {
+                            new ActivityAttendee
+                            {
+                                AppUser = users[1],
+                                IsHost = true                            
+                            },
+                            new ActivityAttendee
+                            {
+                                AppUser = users[0],
+                                IsHost = false                            
+                            },
+                        }
+                    },
+                    new Activity
+                    {
+                        Title = "IND vs SRI",
+                        Date = DateTime.UtcNow.AddMonths(4),
+                        Description = "Activity 4 months in future",
+                        Category = "cricket",
+                        City = "Pune",
+                        Venue = "Something stadium",
+                        Attendees = new List<ActivityAttendee>
+                        {
+                            new ActivityAttendee
+                            {
+                                AppUser = users[1],
+                                IsHost = true                            
+                            }
+                        }
+                    },
+                    new Activity
+                    {
+                        Title = "AUS vs PAK",
+                        Date = DateTime.UtcNow.AddMonths(5),
+                        Description = "Activity 5 months in future",
+                        Category = "cricket",
+                        City = "Wankhede",
+                        Venue = "Something stadium",
+                        Attendees = new List<ActivityAttendee>
+                        {
+                            new ActivityAttendee
+                            {
+                                AppUser = users[0],
+                                IsHost = true                            
+                            },
+                            new ActivityAttendee
+                            {
+                                AppUser = users[1],
+                                IsHost = false                            
+                            },
+                        }
+                    },
+                    new Activity
+                    {
+                        Title = "IND vs AUS",
+                        Date = DateTime.UtcNow.AddMonths(6),
+                        Description = "Activity 6 months in future",
+                        Category = "cricket",
+                        City = "Chennai",
+                        Venue = "Something stadium",
+                        Attendees = new List<ActivityAttendee>
+                        {
+                            new ActivityAttendee
+                            {
+                                AppUser = users[2],
+                                IsHost = true                            
+                            },
+                            new ActivityAttendee
+                            {
+                                AppUser = users[1],
+                                IsHost = false                            
+                            },
+                        }
+                    },
+                    new Activity
+                    {
+                        Title = "BNG vs PAK",
+                        Date = DateTime.UtcNow.AddMonths(7),
+                        Description = "Activity 7 months in future",
+                        Category = "cricket",
+                        City = "Eden Gardens",
+                        Venue = "Something stadium",
+                        Attendees = new List<ActivityAttendee>
+                        {
+                            new ActivityAttendee
+                            {
+                                AppUser = users[0],
+                                IsHost = true                            
+                            },
+                            new ActivityAttendee
+                            {
+                                AppUser = users[2],
+                                IsHost = false                            
+                            },
+                        }
+                    },
+                    new Activity
+                    {
+                        Title = "SRI vs IND",
+                        Date = DateTime.UtcNow.AddMonths(8),
+                        Description = "Activity 8 months in future",
+                        Category = "cricket",
+                        City = "Lucknow",
+                        Venue = "Something stadium",
+                        Attendees = new List<ActivityAttendee>
+                        {
+                            new ActivityAttendee
+                            {
+                                AppUser = users[2],
+                                IsHost = true                            
+                            },
+                            new ActivityAttendee
+                            {
+                                AppUser = users[1],
+                                IsHost = false                            
+                            },
+                        }
+                    }
+                };
+
+                await context.Activities.AddRangeAsync(activities);
+                await context.SaveChangesAsync();
             }
-
-
-            if (context.Activities.Any()) return;
-            
-            var activities = new List<Activity>
-            {
-                new() {
-                    Title = "England vs New Zealand",
-                    Date = DateTime.Parse("10/5/2023"), //DateTime.UtcNow.AddMonths(-2),
-                    Description = "2:00 PM",
-                    Category = "cricket",
-                    City = "Ahmedabad",
-                    Venue = "Ahmedabad",
-                },
-                new() {
-                    Title = "Pakistan vs Netherlands",
-                    Date = DateTime.Parse("10/6/2023"),
-                    Description = "2:00 PM",
-                    Category = "cricket",
-                    City = "Hyderabad",
-                    Venue = "Hyderabad",
-                },
-                new() {
-                    Title = "Bangladesh vs Afghanistan (D)",
-                    Date = DateTime.Parse("10/7/2023"),
-                    Description = "2:00 PM",
-                    Category = "cricket",
-                    City = "Dharamsala",
-                    Venue = "Dharamsala",
-                },
-                new() {
-                    Title = "South Africa vs Sri Lanka",
-                    Date = DateTime.Parse("10/7/2023"),
-                    Description = "2:00 PM",
-                    Category = "cricket",
-                    City = "Delhi",
-                    Venue = "Delhi",
-                },
-                new() {
-                    Title = "India vs Australia",
-                    Date = DateTime.Parse("10/8/2023"),
-                    Description = "2:00 PM",
-                    Category = "cricket",
-                    City = "Chennai",
-                    Venue = "Chennai",
-                },
-                new() {
-                    Title = "New Zealand vs Netherlands",
-                    Date = DateTime.Parse("10/9/2023"),
-                    Description = "2:00 PM",
-                    Category = "cricket",
-                    City = "Hyderabad",
-                    Venue = "Hyderabad",
-                },
-                new() {
-                    Title = "England vs Bangladesh (D)",
-                    Date = DateTime.Parse("10/10/2023"),
-                    Description = "2:00 PM",
-                    Category = "cricket",
-                    City = "Ahmedabad",
-                    Venue = "Ahmedabad",
-                },
-                new() {
-                    Title = "Pakistan vs Sri Lanka",
-                    Date = DateTime.Parse("10/10/2023"),
-                    Description = "2:00 PM",
-                    Category = "cricket",
-                    City = "Dharamsala",
-                    Venue = "Dharamsala",
-                },
-                new() {
-                    Title = "India vs Afghanistan",
-                    Date = DateTime.Parse("10/11/2023"),
-                    Description = "2:00 PM",
-                    Category = "cricket",
-                    City = "Delhi",
-                    Venue = "Delhi",
-                },
-                new() {
-                    Title = "Australia vs South Africa",
-                    Date = DateTime.Parse("10/12/2023"),
-                    Description = "2:00 PM",
-                    Category = "cricket",
-                    City = "Lucknow",
-                    Venue = "Lucknow",
-                }
-            };
-
-            await context.Activities.AddRangeAsync(activities);
-            await context.SaveChangesAsync();
         }
     }
 }
