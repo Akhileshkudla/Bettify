@@ -8,6 +8,7 @@ import NotFound from "../../features/errors/NotFound";
 import ServerError from "../../features/errors/ServerError";
 import LoginForm from "../../features/users/LoginForm";
 import UsersForm from "../../features/users/UsersForm";
+import ChangePassword from "../layout/ChangePassword";
 
 export const routes: RouteObject[] = [
     {
@@ -23,6 +24,7 @@ export const routes: RouteObject[] = [
             {path: 'not-found', element: <NotFound />},
             {path: 'server-error', element: <ServerError />},
             {path: 'users', element: <UsersForm />},
+            {path: 'changepassword', element: <ChangePassword />},
             {path: '*', element: <Navigate replace to='/not-found' />},
         ]
     }
