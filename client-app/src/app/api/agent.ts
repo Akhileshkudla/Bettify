@@ -86,7 +86,7 @@ const Account = {
     current: () => requests.get<User>('/account'),
     login: (user : UserFormValues) => requests.post<User>('/account/login', user),
     register: (user: UserFormValues) => requests.post<User>('/account/register', user),
-    setamount: (amount: number) => requests.put('/account/setamount', amount),
+    setamount: (username: string, amount: number) => requests.put<number>('/account/setamount', { amount, username }),
     users: () => requests.get<User[]>('/account/users')
 }
 

@@ -17,10 +17,13 @@ export default observer (function UserForm() {
         userStore.getallusers()
     }, [userStore])
 
-    const handleSaveAmount = (username: string) => {
+    const handleSaveAmount = async (username: string) => {
         if (userStore) {
-            const parsedAmount = parseFloat(amounts[username]) || 0;
-            userStore.setuseramount(parsedAmount);
+            const parsedAmount = parseInt(amounts[username]) || 0;
+            console.log('Parsed amount: ', parsedAmount)
+            await userStore.setuseramount(parsedAmount, username);
+            // Reload data after saving the amount
+            userStore.getallusers();
         }
       };
 

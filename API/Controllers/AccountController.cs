@@ -90,11 +90,13 @@ public class AccountController : ControllerBase
     }
 
     [HttpPut("setamount")]
-    public async Task<IActionResult> SetAmount(int amount)
+    public async Task<IActionResult> SetAmount(AmountDto amountDto)
     {
-        var user = await _userManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email));
+        var user = await _userManager.Users.FirstOrDefaultAsync(u => u.UserName == amountDto.Username);
 
-        user.Amount = amount;
+        if(user == null) return BadRequest("User not found");
+
+        user.Amount = amountDto.Amount;
 
         var result = await _userManager.UpdateAsync(user);
 

@@ -20,8 +20,8 @@ namespace Persistence
                     },
                     new AppUser
                     {
-                        DisplayName = "Prakash",
-                        UserName = "prakash",
+                        DisplayName = "Soumya",
+                        UserName = "soumya",
                         Email = "prakash@test.com"
                     },
                     new AppUser
