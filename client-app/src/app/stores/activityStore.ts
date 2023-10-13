@@ -176,6 +176,7 @@ export default class ActivityStore {
         try {
             console.log('2: ', option)
             await agent.Activities.setwinningteam(this.selectedActivity!.id, option!);
+            store.modalStore.closeModal();
         } catch (error) {
             console.log(error);
         } finally {
