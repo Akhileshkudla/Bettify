@@ -16,9 +16,9 @@ export interface Activity {
     host?: Profile;
     options: string[];
     winningOption: string;
-    amountifwon: number;
-    amountiflose: number;
-    ismandatoryactivity: boolean;
+    amountIfWon: number;
+    amountIfLose: number;
+    isMandatoryActivity: boolean;
 }
 
 export class ActivityFormValues
