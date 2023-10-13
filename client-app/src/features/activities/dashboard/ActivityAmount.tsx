@@ -17,7 +17,7 @@ export default observer(function ActivityAmount() {
                         <p>Amount you owe: </p>
                     </Grid.Column>
                     <Grid.Column width={1}>
-                        <p> {userStore.user?.username}</p>
+                        <p> {userStore.user?.amount}</p>
                     </Grid.Column>
                 </Grid>
             </Segment>            
