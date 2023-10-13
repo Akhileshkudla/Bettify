@@ -75,10 +75,12 @@ export default observer (function ActivityDetailedHeader({activity}: Props) {
                             floated='left'
                             basic
                             content={activity.isCancelled ? 'Re-activate event' :'Complete event'}
-                            onClick={ () => modalStore.openModal(<ActivityDetailsWinningBet 
+                            onClick={ () => {
+                                modalStore.openModal(<ActivityDetailsWinningBet 
                                                                     activitiesOptions={activity.options} 
-                                                                />)}
-                            // onClick={cancelActivityToggle}
+                                                                />)
+                                {cancelActivityToggle}
+                                                            }}
                         />
                         <Button as={Link} to={`/manage/${activity.id}`} color='orange' floated='right' >
                             Manage event

@@ -65,10 +65,9 @@ export default class UserStore {
         }
     }
 
-    setuseramount = async (amount: number) => {
+    setuseramount = async (amount: number, username: string) => {
         try {
-            console.log("1: ", amount)
-            await agent.Account.setamount( amount);
+            await agent.Account.setamount(username, amount);
         } catch (error) {
             throw(error);
         }

@@ -8,7 +8,7 @@ interface Props {
   }
 
 export default observer(function ActivityDropdownComponent ( props : Props) {
-    const {activityStore : { updateWinningOption }} = useStore()
+    const {activityStore : { updateWinningOption, cancelActivityToggle }} = useStore()
 
 
     const dropdownOptions = props.activitiesOptions.map((option) => ({
@@ -20,6 +20,7 @@ export default observer(function ActivityDropdownComponent ( props : Props) {
       const handleSubmit = (values: { selectedOption: string; }) => {
         console.log('1: ', values.selectedOption)
         updateWinningOption(values.selectedOption);
+        cancelActivityToggle();
       };
     
       return (
