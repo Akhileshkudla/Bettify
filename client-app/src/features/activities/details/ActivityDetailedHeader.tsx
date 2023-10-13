@@ -1,9 +1,12 @@
 import { observer } from 'mobx-react-lite';
-import {Button, Header, Item, Segment, Image, Label} from 'semantic-ui-react'
+import {Button, Header, Item, Segment, Image, Label, Icon} from 'semantic-ui-react'
 import {Activity} from "../../../app/models/activity";
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import { useStore } from '../../../app/stores/store';
+import { useEffect, useState } from 'react';
+import ActivityDetailsPlaceBet from './ActivityDetailsPlaceBet';
+import ActivityDetailsWinningBet from './ActivityDetailsWinningBet';
 
 const activityImageStyle = {
     filter: 'brightness(30%)'
@@ -23,12 +26,27 @@ interface Props {
 }
 
 export default observer (function ActivityDetailedHeader({activity}: Props) {
-    const {activityStore : {updateAttendance, loading, cancelActivityToggle}} = useStore()
+    const {activityStore : {updateAttendance, cancelActivityToggle}} = useStore()
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+    const { modalStore} = useStore();
+
+    useEffect(() => {
+        const currentTime = new Date();
+    
+        // Compare current time with activity date
+        if (currentTime > activity.date! || activity.isCancelled) {
+          setIsButtonDisabled(true);
+        } else {
+          setIsButtonDisabled(false);
+        }
+      }, [activity.date, activity.isCancelled]);
+
+      
     return (
         <Segment.Group>
             <Segment basic attached='top' style={{padding: '0'}}>
                 {activity.isCancelled &&
-                    <Label style={{position : 'absolute', zIndex: 1000, left: -14, top: 20}} ribbon color='red' content='Cancelled' />
+                    <Label style={{position : 'absolute', zIndex: 1000, left: -14, top: 20}} ribbon color='red' content='Completed' />
                 }
                 <Image src={`/assets/categoryImages/${activity.category}.jpg`} fluid style={activityImageStyle}/>
                 <Segment style={activityImageTextStyle} basic>
@@ -53,21 +71,29 @@ export default observer (function ActivityDetailedHeader({activity}: Props) {
                 {activity.isHost ? (
                     <>
                         <Button 
-                        color={activity.isCancelled ? "green" : 'red'}
-                        floated='left'
-                        basic
-                        content={activity.isCancelled ? 'Re-activate event' :'Cancel event'}
-                        onClick={cancelActivityToggle}
+                            color={activity.isCancelled ? "green" : 'red'}
+                            floated='left'
+                            basic
+                            content={activity.isCancelled ? 'Re-activate event' :'Complete event'}
+                            onClick={ () => modalStore.openModal(<ActivityDetailsWinningBet 
+                                                                    activitiesOptions={activity.options} 
+                                                                />)}
+                            // onClick={cancelActivityToggle}
                         />
-                        <Button as={Link} to={`/manage/${activity.id}`} color='orange' floated='right'>
+                        <Button as={Link} to={`/manage/${activity.id}`} color='orange' floated='right' >
                             Manage event
                         </Button>
                     </>
                     
                 ) : activity.isGoing ? (
-                    <Button onClick={updateAttendance}>Clear selection</Button>
+                    <Button disabled={isButtonDisabled} onClick={() => updateAttendance(undefined)}>Clear selection</Button>
                 ) : (
-                    <Button onClick={updateAttendance} color='teal'>Choose your team</Button>
+                    <Button animated disabled={isButtonDisabled} onClick={ () => modalStore.openModal(<ActivityDetailsPlaceBet activity={activity}/>)} color='facebook'>
+                        <Button.Content visible>Place bet</Button.Content>
+                        <Button.Content hidden>
+                            <Icon name='arrow right' />
+                        </Button.Content>
+                    </Button>                    
                 )}                
             </Segment>
         </Segment.Group>

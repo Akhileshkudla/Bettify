@@ -23,5 +23,15 @@ namespace Application.Activities
         public bool IsCancelled { get; set; }
 
         public ICollection<Profile> Attendees { get; set; }
+
+        public string[] Options { get; set; }
+
+        public string WinningOption { get; set; }
+
+        public int AmountIfWon { get; set; }
+
+        public int AmountIfLose { get; set; }
+
+        public bool IsMandatoryActivity { get; set; }
     }
 }

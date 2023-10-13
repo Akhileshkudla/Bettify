@@ -1,6 +1,7 @@
 using Domain;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Persistence;
 
@@ -29,5 +30,19 @@ public class DataContext : IdentityDbContext<AppUser>
             .HasOne(u => u.Activity)
             .WithMany(a => a.Attendees)
             .HasForeignKey(aa => aa.ActivityId);
+
+            builder.Entity<Activity>()
+                .Property(e => e.Options)
+                .HasConversion(GetValueConverter());
+    }
+
+    private ValueConverter<string[], string> GetValueConverter()
+    {
+        // Configure the value converter for ActivityOptions property
+        var converter = new ValueConverter<string[], string>(
+            v => string.Join(',', v),
+            v => v.Split(',', StringSplitOptions.RemoveEmptyEntries));
+
+        return converter;
     }
 }

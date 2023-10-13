@@ -6,6 +6,7 @@ import { router } from "../router/Route";
 
 export default class UserStore {
     user: User | null = null;
+    users: User[] = [];
 
     constructor() {
         makeAutoObservable(this);        
@@ -42,6 +43,15 @@ export default class UserStore {
         }
     }
 
+    getallusers = async () => {
+        try {
+            const users = await agent.Account.users();
+            runInAction(() => this.users = users);
+        } catch (error) {
+            
+        }
+    }
+
     register = async (creds: UserFormValues) => {
         try {
             const user = await agent.Account.register(creds);
@@ -50,6 +60,15 @@ export default class UserStore {
             router.navigate('/activities');
             store.modalStore.closeModal();
             console.log(user);
+        } catch (error) {
+            throw(error);
+        }
+    }
+
+    setuseramount = async (amount: number) => {
+        try {
+            console.log("1: ", amount)
+            await agent.Account.setamount( amount);
         } catch (error) {
             throw(error);
         }

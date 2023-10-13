@@ -13,7 +13,6 @@ const sleep = (delay: number) => {
 
 axios.defaults.baseURL = 'http://localhost:5000/api';
 
-const responseBody = <T>(response: AxiosResponse<T>) => response.data;
 
 axios.interceptors.request.use(config => {
     const token = store.commonStore.token;
@@ -79,13 +78,16 @@ const Activities = {
     create: (activity: ActivityFormValues) => requests.post('/activities', activity),
     update: (activity: ActivityFormValues) => requests.put(`/activities/${activity.id}`, activity),
     delete: (id : string) => requests.del(`/activities/${id}`) ,
-    attend: (id: string) => requests.post(`/activities/${id}/attend`, {})
+    attend: (id: string, option: string) => requests.post(`/activities/${id}/attend`, {option}),
+    setwinningteam: (id: string, option: string) => requests.post(`/activities/${id}/setwinningteam`, {option})
 }
 
 const Account = {
     current: () => requests.get<User>('/account'),
     login: (user : UserFormValues) => requests.post<User>('/account/login', user),
-    register: (user: UserFormValues) => requests.post<User>('/account/register', user)
+    register: (user: UserFormValues) => requests.post<User>('/account/register', user),
+    setamount: (amount: number) => requests.put('/account/setamount', amount),
+    users: () => requests.get<User[]>('/account/users')
 }
 
 const agent = {

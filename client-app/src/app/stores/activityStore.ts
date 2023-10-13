@@ -132,11 +132,11 @@ export default class ActivityStore {
         }
     }
 
-    updateAttendance = async () => {
+    updateAttendance = async (option?: string | undefined) => {
         const user = store.userStore.user;
         this.loading = true;
         try {
-            await agent.Activities.attend(this.selectedActivity!.id);
+            await agent.Activities.attend(this.selectedActivity!.id, option!);
             runInAction(() => {
                 if (this.selectedActivity?.isGoing) {
                     this.selectedActivity.attendees = this.selectedActivity.attendees?.filter(a => a.username !== user?.username);
@@ -147,6 +147,7 @@ export default class ActivityStore {
                     this.selectedActivity!.isGoing = true;
                 }
                 this.activityRegistry.set(this.selectedActivity!.id, this.selectedActivity!);
+                store.modalStore.closeModal();
             })
         } catch (error) {
             console.log(error);
@@ -158,11 +159,23 @@ export default class ActivityStore {
     cancelActivityToggle = async () => {
         this.loading = true;
         try {
-            await agent.Activities.attend(this.selectedActivity!.id);
+            await agent.Activities.attend(this.selectedActivity!.id, "");
             runInAction(() => {
                 this.selectedActivity!.isCancelled = !this.selectedActivity!.isCancelled;
                 this.activityRegistry.set(this.selectedActivity!.id, this.selectedActivity!);
             })
+        } catch (error) {
+            console.log(error);
+        } finally {
+            runInAction(() => this.loading = false);
+        }
+    }
+
+    updateWinningOption = async (option?: string | undefined) =>{
+        this.loading = true;
+        try {
+            console.log('2: ', option)
+            await agent.Activities.setwinningteam(this.selectedActivity!.id, option!);
         } catch (error) {
             console.log(error);
         } finally {

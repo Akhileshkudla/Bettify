@@ -1,56 +1,51 @@
-import { format } from 'date-fns';
 import { observer } from 'mobx-react-lite';
 import { Segment, Grid, Icon } from 'semantic-ui-react'
 import { Activity } from "../../../app/models/activity";
-import { useStore } from '../../../app/stores/store';
 
 interface Props {
     activity: Activity
 }
 
 export default observer(function ActivityDetailedInfo({ activity }: Props) {
-    const {userStore } = useStore()
     return (
         <Segment.Group>
             <Segment attached='top'>
                 <Grid>
                     <Grid.Column width={1}>
-                        <Icon size='large' color='teal' name='gem' />
+                        <Icon size='large' color='teal' name='bitcoin' />
                     </Grid.Column>
-                    <Grid.Column width={15}>
-                        <p>You choose: {}</p>
+                    <Grid.Column width={10}>
+                        <p>Amount if you win: {activity.amountifwon}</p>
                     </Grid.Column>
                 </Grid>
             </Segment>
             <Segment attached>
                 <Grid>
                     <Grid.Column width={1}>
-                        <Icon size='large' color='teal' name='info' />
+                        <Icon size='large' color='teal' name='bitcoin' />
                     </Grid.Column>
-                    <Grid.Column width={15}>
-                        <p>{activity.description}</p>
-                    </Grid.Column>
-                </Grid>
-            </Segment>
-            <Segment attached>
-                <Grid verticalAlign='middle'>
-                    <Grid.Column width={1}>
-                        <Icon name='calendar' size='large' color='teal' />
-                    </Grid.Column>
-                    <Grid.Column width={15}>
-                        <span>
-                            {format(activity.date!, 'dd MMM yyyy h:mm aa')}
-                        </span>
+                    <Grid.Column width={10}>
+                    <p>Amount if you loose: {activity.amountiflose}</p>
                     </Grid.Column>
                 </Grid>
             </Segment>
-            <Segment attached>
+            <Segment>
                 <Grid verticalAlign='middle'>
                     <Grid.Column width={1}>
-                        <Icon name='marker' size='large' color='teal' />
+                        <Icon name='bitcoin' size='large' color='teal' />
                     </Grid.Column>
-                    <Grid.Column width={11}>
-                        <span>{activity.venue}, {activity.city}</span>
+                    <Grid.Column width={10}>
+                        <p>Total amount you owe: {activity.isGoing}</p>
+                    </Grid.Column>
+                </Grid>
+            </Segment>
+            <Segment attached='bottom'>
+                <Grid verticalAlign='middle'>
+                    <Grid.Column width={1}>
+                        <Icon name='info' size='large' color='teal' />
+                    </Grid.Column>
+                    <Grid.Column width={12}>
+                        <p>Negative numbers mean you receive money, non-negative numbers mean you pay money. </p>
                     </Grid.Column>
                 </Grid>
             </Segment>

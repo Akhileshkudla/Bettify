@@ -1,4 +1,4 @@
-import { Button, Container, Menu, Image, Dropdown } from 'semantic-ui-react';
+import { Button, Container, Menu, Image, Dropdown, Popup, Label } from 'semantic-ui-react';
 import { Link, NavLink } from 'react-router-dom';
 import { useStore } from '../stores/store';
 import { observer } from 'mobx-react-lite';
@@ -14,9 +14,18 @@ export default observer(function NavBar() {
                     Bettify
                 </Menu.Item>
                 <Menu.Item as={NavLink} to='/activities' name='Actvities' />
-                <Menu.Item as={NavLink} to='/errors' name='Errors' />
+                <Menu.Item as={NavLink} to='/errors' name='Errors' />                
+                {user!.username === 'admin' && (
+                    <Menu.Item as={NavLink} to='/users' name='Users' />
+                )}          
                 <Menu.Item>
-                    <Button as={NavLink} to='/createActivity' positive content='Create Activity'/>
+                    <Button 
+                        as={NavLink} 
+                        to='/createActivity' 
+                        positive 
+                        content='Create Activity'
+                        disabled={user?.username !== 'admin'}
+                    />                    
                 </Menu.Item>
                 <Menu.Item position='right'>
                     <Image src={user?.image || '/assets/user.png'} avatar spaced='right' />

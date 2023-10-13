@@ -34,7 +34,7 @@ public class AccountController : ControllerBase
 
         if(result)
         {
-            return CreateuserObject(user);
+            return CreateUserObject(user);
         }
 
         return Unauthorized();
@@ -66,7 +66,7 @@ public class AccountController : ControllerBase
 
         if(result.Succeeded)
         {
-            return CreateuserObject(user);
+            return CreateUserObject(user);
         }
 
         return BadRequest(result.Errors);
@@ -77,18 +77,47 @@ public class AccountController : ControllerBase
     {
         var user = await _userManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email));
 
-        return CreateuserObject(user);
+        return CreateUserObject(user);
+    }
+
+    [HttpGet("users")]
+    public async Task<ActionResult<List<UserDto>>> GetAllUsers()
+    {
+        List<AppUser> user = await _userManager.Users.ToListAsync();
+        List<UserDto> userDtos = new List<UserDto>(); 
+        user.ForEach(x => userDtos.Add(CreateUserObject(x).Value));
+        return userDtos;
+    }
+
+    [HttpPut("setamount")]
+    public async Task<IActionResult> SetAmount(int amount)
+    {
+        var user = await _userManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email));
+
+        user.Amount = amount;
+
+        var result = await _userManager.UpdateAsync(user);
+
+        if (result.Succeeded)
+        {
+            return Ok("User amount updated successfully");
+        }
+        else
+        {
+            return BadRequest("Failed to update user amount");
+        }
     }
    
 
-    private ActionResult<UserDto> CreateuserObject(AppUser user)
+    private ActionResult<UserDto> CreateUserObject(AppUser user)
     {
         return new UserDto
         {
             DisplayName = user.DisplayName,
             Image = null,
             Token = _tokenService.CreateToken(user),
-            Username = user.UserName
+            Username = user.UserName,
+            Amount = user.Amount
         };
     }
 }

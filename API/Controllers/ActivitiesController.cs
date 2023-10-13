@@ -1,3 +1,4 @@
+using API.DTOs;
 using Application.Activities;
 using Domain;
 using Microsoft.AspNetCore.Authorization;
@@ -30,9 +31,7 @@ public class ActivitiesController : BaseApiController
     public async Task<IActionResult> EditActivity(Guid id, Activity activity)
     {
         activity.Id = id;
-        await Mediator.Send(new Edit.Command {Activity = activity});
-
-        return Ok();
+        return HandleResults(await Mediator.Send(new Edit.Command {Activity = activity}));
     }
 
     [Authorize(Policy = "IsActivityHost")]
@@ -43,8 +42,14 @@ public class ActivitiesController : BaseApiController
     }
 
     [HttpPost("{id}/attend")]
-    public async Task<IActionResult> Attend(Guid id)
+    public async Task<IActionResult> Attend(Guid id, OptionsDto options)
     {
-        return HandleResults(await Mediator.Send(new UpdateAttendance.Command{Id = id}));
+        return HandleResults(await Mediator.Send(new UpdateAttendance.Command{Id = id, ChosenOption = options.option}));
+    }
+
+    [HttpPost("{id}/setwinningteam")]
+    public async Task<IActionResult> SetWinningTeam(Guid id, OptionsDto options)
+    {
+        return HandleResults(await Mediator.Send(new UpdateWinningBet.Command{Id = id, ChosenOption = options.option}));
     }
 }

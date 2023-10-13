@@ -41,7 +41,7 @@ public class Create
             var attendee = new ActivityAttendee{
                 AppUser = user,
                 Activity = request.Activity,
-                IsHost = true
+                IsHost = true,                
             };
 
             request.Activity.Attendees.Add(attendee);

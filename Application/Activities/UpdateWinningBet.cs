@@ -7,7 +7,7 @@ using Persistence;
 
 namespace Application.Activities
 {
-    public class UpdateAttendance
+    public class UpdateWinningBet
     {
         public class Command : IRequest<Result<Unit>>
         {
@@ -34,37 +34,25 @@ namespace Application.Activities
 
                 if(activity == null) return null;
 
-                var user = await _context.Users.FirstOrDefaultAsync(x => 
-                    x.UserName == _userAccessor.GetUsername());
+                activity.WinningOption = request.ChosenOption;                
 
-                if(user == null) return null;
+                //TODO: Some junk logic, I need to find a better place to put this.
 
-                var hostUsername = activity.Attendees.FirstOrDefault(a => a.IsHost).AppUser.UserName;
-
-                var attendance = activity.Attendees.FirstOrDefault(x => x.AppUser.UserName == user.UserName);
-
-                if(attendance != null && hostUsername == user.UserName)
-                    activity.IsCancelled = !activity.IsCancelled;
-                
-                if(attendance != null && hostUsername != user.UserName)
-                    activity.Attendees.Remove(attendance);
-
-                if(attendance == null)
+                foreach (ActivityAttendee attendee in activity.Attendees)
                 {
-                    attendance = new ActivityAttendee
+                    if(attendee.ChosenOption != activity.WinningOption)
                     {
-                        AppUser = user,
-                        Activity = activity,
-                        IsHost = false,
-                        ChosenOption = request.ChosenOption
-                    };
-
-                    activity.Attendees.Add(attendance);
+                        attendee.AppUser.Amount += activity.AmountIfLose;
+                    }
+                    else
+                    {
+                        attendee.AppUser.Amount += activity.AmountIfWon;
+                    }
                 }
 
                 var result = await _context.SaveChangesAsync() > 0;
 
-                return result ? Result<Unit>.Sucess(Unit.Value) : Result<Unit>.Failure("Problem updating attendees");
+                return result ? Result<Unit>.Sucess(Unit.Value) : Result<Unit>.Failure("Problem updating winning bet");
             }
         }
     }

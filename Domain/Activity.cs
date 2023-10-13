@@ -19,4 +19,14 @@ public class Activity
     public bool IsCancelled { get; set; }
 
     public ICollection<ActivityAttendee> Attendees { get; set; } = new List<ActivityAttendee>();
+
+    public string[] Options { get; set; }
+
+    public string WinningOption { get; set; }
+
+    public int AmountIfWon { get; set; }
+
+    public int AmountIfLose { get; set; }
+
+    public bool IsMandatoryActivity { get; set; }
 }

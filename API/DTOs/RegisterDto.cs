@@ -9,7 +9,7 @@ public class RegisterDto
     public string Email { get; set; }
 
     [Required]
-    [RegularExpression("(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{4,8}$", ErrorMessage = "Password does not meet the required complexity!")]
+    [RegularExpression("(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$", ErrorMessage = "Password does not meet the required complexity!")]
     public string Password { get; set; }
 
     [Required]

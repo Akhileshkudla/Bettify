@@ -30,6 +30,12 @@ namespace Persistence
                         UserName = "manisman",
                         Email = "manisman@test.com"
                     },
+                    new AppUser
+                    {
+                        DisplayName = "Almighty Admin",
+                        UserName = "admin",
+                        Email = "admin@test.com"
+                    },
                 };
 
                 foreach (var user in users)
@@ -51,10 +57,20 @@ namespace Persistence
                         {
                             new ActivityAttendee
                             {
-                                AppUser = users[0],
+                                AppUser = users[3],
                                 IsHost = true
-                            }
-                        }
+                            },
+                            new ActivityAttendee
+                            {
+                                AppUser = users[1],
+                                IsHost = false                            
+                            },
+                        },
+                        AmountIfLose = 100,
+                        AmountIfWon=50,
+                        IsMandatoryActivity=true,
+                        WinningOption="",
+                        Options = new []{"ENG", "NZ"}
                     },
                     new Activity
                     {
@@ -68,7 +84,7 @@ namespace Persistence
                         {
                             new ActivityAttendee
                             {
-                                AppUser = users[0],
+                                AppUser = users[3],
                                 IsHost = true
                             },
                             new ActivityAttendee
@@ -76,7 +92,12 @@ namespace Persistence
                                 AppUser = users[1],
                                 IsHost = false
                             },
-                        }
+                        },
+                        AmountIfLose = 100,
+                        AmountIfWon=50,
+                        IsMandatoryActivity=true,
+                        WinningOption="",
+                        Options = new []{"PAK", "NTL"}
                     },
                     new Activity
                     {
@@ -90,7 +111,7 @@ namespace Persistence
                         {
                             new ActivityAttendee
                             {
-                                AppUser = users[2],
+                                AppUser = users[3],
                                 IsHost = true
                             },
                             new ActivityAttendee
@@ -98,7 +119,12 @@ namespace Persistence
                                 AppUser = users[1],
                                 IsHost = false
                             },
-                        }
+                        },
+                        AmountIfLose = 100,
+                        AmountIfWon=50,
+                        IsMandatoryActivity=false,
+                        WinningOption="",
+                        Options = new []{"AFG", "BANG"}
                     },
                     new Activity
                     {
@@ -112,7 +138,7 @@ namespace Persistence
                         {
                             new ActivityAttendee
                             {
-                                AppUser = users[0],
+                                AppUser = users[3],
                                 IsHost = true
                             },
                             new ActivityAttendee
@@ -120,7 +146,12 @@ namespace Persistence
                                 AppUser = users[2],
                                 IsHost = false
                             },
-                        }
+                        },
+                        AmountIfLose = 100,
+                        AmountIfWon=50,
+                        IsMandatoryActivity=true,
+                        WinningOption="",
+                        Options = new []{"IND", "PAK"}
                     },
                     new Activity
                     {
@@ -134,7 +165,7 @@ namespace Persistence
                         {
                             new ActivityAttendee
                             {
-                                AppUser = users[1],
+                                AppUser = users[3],
                                 IsHost = true                            
                             },
                             new ActivityAttendee
@@ -142,7 +173,12 @@ namespace Persistence
                                 AppUser = users[0],
                                 IsHost = false                            
                             },
-                        }
+                        },
+                        AmountIfLose = 100,
+                        AmountIfWon=50,
+                        IsMandatoryActivity=true,
+                        WinningOption="",
+                        Options = new []{"SA", "AFG"}
                     },
                     new Activity
                     {
@@ -156,10 +192,20 @@ namespace Persistence
                         {
                             new ActivityAttendee
                             {
-                                AppUser = users[1],
+                                AppUser = users[3],
                                 IsHost = true                            
-                            }
-                        }
+                            },
+                            new ActivityAttendee
+                            {
+                                AppUser = users[1],
+                                IsHost = false                            
+                            },
+                        },
+                        AmountIfLose = 100,
+                        AmountIfWon=50,
+                        IsMandatoryActivity=true,
+                        WinningOption="",
+                        Options = new []{"IND", "SRI"}
                     },
                     new Activity
                     {
@@ -173,7 +219,7 @@ namespace Persistence
                         {
                             new ActivityAttendee
                             {
-                                AppUser = users[0],
+                                AppUser = users[3],
                                 IsHost = true                            
                             },
                             new ActivityAttendee
@@ -181,7 +227,12 @@ namespace Persistence
                                 AppUser = users[1],
                                 IsHost = false                            
                             },
-                        }
+                        },
+                        AmountIfLose = 100,
+                        AmountIfWon=50,
+                        IsMandatoryActivity=true,
+                        WinningOption="",
+                        Options = new []{"AUS", "PAK"}
                     },
                     new Activity
                     {
@@ -195,7 +246,7 @@ namespace Persistence
                         {
                             new ActivityAttendee
                             {
-                                AppUser = users[2],
+                                AppUser = users[3],
                                 IsHost = true                            
                             },
                             new ActivityAttendee
@@ -203,7 +254,12 @@ namespace Persistence
                                 AppUser = users[1],
                                 IsHost = false                            
                             },
-                        }
+                        },
+                        AmountIfLose = 100,
+                        AmountIfWon=50,
+                        IsMandatoryActivity=true,
+                        WinningOption="",
+                        Options = new []{"IND", "AUS"}
                     },
                     new Activity
                     {
@@ -217,7 +273,7 @@ namespace Persistence
                         {
                             new ActivityAttendee
                             {
-                                AppUser = users[0],
+                                AppUser = users[3],
                                 IsHost = true                            
                             },
                             new ActivityAttendee
@@ -225,7 +281,12 @@ namespace Persistence
                                 AppUser = users[2],
                                 IsHost = false                            
                             },
-                        }
+                        },
+                        AmountIfLose = 100,
+                        AmountIfWon=50,
+                        IsMandatoryActivity=true,
+                        WinningOption="",
+                        Options = new []{"BNG", "PAK"}
                     },
                     new Activity
                     {
@@ -239,7 +300,7 @@ namespace Persistence
                         {
                             new ActivityAttendee
                             {
-                                AppUser = users[2],
+                                AppUser = users[3],
                                 IsHost = true                            
                             },
                             new ActivityAttendee
@@ -247,7 +308,12 @@ namespace Persistence
                                 AppUser = users[1],
                                 IsHost = false                            
                             },
-                        }
+                        },
+                        AmountIfLose = 100,
+                        AmountIfWon=50,
+                        IsMandatoryActivity=true,
+                        WinningOption="",
+                        Options = new []{"SRI", "IND"}
                     }
                 };
 

@@ -14,7 +14,7 @@ export default function ActivityListItem({activity} : Props){
         <Segment.Group>
             <Segment>
                 {activity.isCancelled && 
-                    <Label attached="top" color="red" content='Cancelled' style={{textAlign: 'center'}} />
+                    <Label attached="top" color="red" content='Completed' style={{textAlign: 'center'}} />
                 }
                 <Item.Group>
                     <Item>
@@ -53,7 +53,12 @@ export default function ActivityListItem({activity} : Props){
             </Segment>
             <Segment clearing>
                 <span>{activity.description}</span>
-                <Button as={Link} to={`/activities/${activity.id}`} color="teal" floated="right" content='View' />
+                <Button animated as={Link} to={`/activities/${activity.id}`} color="teal" floated="right" content='View' >
+                <Button.Content visible>Next</Button.Content>
+                <Button.Content hidden>
+                    <Icon name='eye' />
+                </Button.Content>
+                </Button>
             </Segment>
         </Segment.Group>
     )

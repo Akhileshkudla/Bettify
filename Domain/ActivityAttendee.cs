@@ -11,5 +11,7 @@ namespace Domain
         public Activity Activity { get; set; }
 
         public bool IsHost { get; set; }
+
+        public string ChosenOption { get; set; }
     }
 }
