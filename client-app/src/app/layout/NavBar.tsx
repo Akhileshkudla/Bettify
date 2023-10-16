@@ -1,10 +1,18 @@
-import { Button, Container, Menu, Image, Dropdown } from 'semantic-ui-react';
+import { Button, Container, Menu, Image, Dropdown, Icon } from 'semantic-ui-react';
 import { Link, NavLink } from 'react-router-dom';
 import { useStore } from '../stores/store';
 import { observer } from 'mobx-react-lite';
+import { useEffect } from 'react';
 
 export default observer(function NavBar() {
-    const {userStore: {user, logout}} = useStore();
+    const {userStore: {user, logout, users, getallusers} } = useStore();
+
+    const totalAmount = users.reduce((total, user) => total + user.amount, 0);
+
+    useEffect(() => {
+        // Fetch users when component mounts
+        getallusers();
+    }, [getallusers]);
 
     return (
         <Menu inverted fixed='top'>
@@ -14,8 +22,8 @@ export default observer(function NavBar() {
                     Bettify
                 </Menu.Item>
                 <Menu.Item as={NavLink} to='/activities' name='Actvities' />
-                <Menu.Item as={NavLink} to='/errors' name='Errors' />                
-                {user!.username === 'admin' && (
+                {/* <Menu.Item as={NavLink} to='/errors' name='Errors' />                 */}
+                {user!== null && user!.username === 'admin' && (
                     <Menu.Item as={NavLink} to='/users' name='Users' />
                 )}          
                 <Menu.Item>
@@ -26,6 +34,10 @@ export default observer(function NavBar() {
                         content='Create Activity'
                         disabled={user?.username !== 'admin'}
                     />                    
+                </Menu.Item>
+                <Menu.Item position='right'>
+                    <Icon name='bitcoin'></Icon>
+                    Party Fund Total: ₹{totalAmount} 
                 </Menu.Item>
                 <Menu.Item position='right'>
                     <Image src={user?.image || '/assets/user.png'} avatar spaced='right' />

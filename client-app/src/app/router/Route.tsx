@@ -6,25 +6,27 @@ import ActivityDetails from "../../features/activities/details/ActivityDetails";
 import TestErrors from "../../features/errors/TestError";
 import NotFound from "../../features/errors/NotFound";
 import ServerError from "../../features/errors/ServerError";
-import LoginForm from "../../features/users/LoginForm";
 import UsersForm from "../../features/users/UsersForm";
 import ChangePassword from "../layout/ChangePassword";
+import RequireAuth from "./RequireAuth";
 
 export const routes: RouteObject[] = [
     {
         path: '/',
         element: <App />,
         children: [            
-            {path: 'activities', element: <ActivityDashboard />},
-            {path: 'activities/:id', element: <ActivityDetails />},
-            {path: 'createActivity', element: <AcitivityForm key='create' />},
-            {path: 'manage/:id', element: <AcitivityForm key={'manage'} />},
-            {path: 'login', element: <LoginForm />},
-            {path: 'errors', element: <TestErrors />},
-            {path: 'not-found', element: <NotFound />},
-            {path: 'server-error', element: <ServerError />},
-            {path: 'users', element: <UsersForm />},
-            {path: 'changepassword', element: <ChangePassword />},
+            {element: <RequireAuth />, children: [
+                {path: 'activities', element: <ActivityDashboard />},
+                {path: 'activities/:id', element: <ActivityDetails />},
+                {path: 'createActivity', element: <AcitivityForm key='create' />},
+                {path: 'manage/:id', element: <AcitivityForm key={'manage'} />},                
+                {path: 'errors', element: <TestErrors />},
+                {path: 'not-found', element: <NotFound />},
+                {path: 'server-error', element: <ServerError />},
+                {path: 'users', element: <UsersForm />},
+                {path: 'changepassword', element: <ChangePassword />},
+            ]},
+            
             {path: '*', element: <Navigate replace to='/not-found' />},
         ]
     }

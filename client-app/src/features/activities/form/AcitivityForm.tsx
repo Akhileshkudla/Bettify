@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Checkbox, Button, Header, Input, Segment } from "semantic-ui-react";
+import { Button, Header, Input, Segment } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 import { observer } from "mobx-react-lite";
 import { Link, useNavigate, useParams } from "react-router-dom";

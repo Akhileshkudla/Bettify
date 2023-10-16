@@ -20,8 +20,10 @@ namespace Application.Activities
         {
             private readonly DataContext _context;
             private readonly IUserAccessor _userAccessor;
-            public Handler(DataContext context, IUserAccessor userAccessor)
+        private readonly ITelegramService _telegramService;
+            public Handler(DataContext context, IUserAccessor userAccessor, ITelegramService telegramService)
             {
+            _telegramService = telegramService;
                 _userAccessor = userAccessor;
                 _context = context;                
             }
@@ -45,9 +47,14 @@ namespace Application.Activities
 
                 if(attendance != null && hostUsername == user.UserName)
                     activity.IsCancelled = !activity.IsCancelled;
+
+                string type = "cancelled";
                 
                 if(attendance != null && hostUsername != user.UserName)
-                    activity.Attendees.Remove(attendance);
+                    {
+                        activity.Attendees.Remove(attendance);
+
+                    }
 
                 if(attendance == null)
                 {
@@ -60,9 +67,12 @@ namespace Application.Activities
                     };
 
                     activity.Attendees.Add(attendance);
+                    type = "placed";
                 }
 
                 var result = await _context.SaveChangesAsync() > 0;
+
+                if(result) await _telegramService.SendMessageAsync($"{attendance.AppUser.DisplayName} {type} his bet.");
 
                 return result ? Result<Unit>.Sucess(Unit.Value) : Result<Unit>.Failure("Problem updating attendees");
             }

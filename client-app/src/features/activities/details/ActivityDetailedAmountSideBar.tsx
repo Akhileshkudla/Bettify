@@ -1,14 +1,26 @@
 import { observer } from 'mobx-react-lite';
 import { Segment, Grid, Icon } from 'semantic-ui-react'
-import { Activity } from "../../../app/models/activity";
+import { Activity, ActivityFormValues } from "../../../app/models/activity";
 import { useStore } from '../../../app/stores/store';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import ActivityStore from '../../../app/stores/activityStore';
 
 interface Props {
     activity: Activity
 }
 
+
 export default observer(function ActivityDetailedInfo({ activity }: Props) {
-    const {userStore} = useStore();    
+    const {userStore, activityStore : {loadActivity, selectedActivity}} = useStore();   
+
+    const [activity2, setActivity] = useState<ActivityFormValues>(new ActivityFormValues());
+    const { id } = useParams();
+
+    useEffect(() => {
+        if (id) loadActivity(id).then(activity => setActivity(new ActivityFormValues(activity)));
+    }, [id, loadActivity])
+
     return (
         <Segment.Group>
             <Segment attached='top'>
@@ -17,7 +29,7 @@ export default observer(function ActivityDetailedInfo({ activity }: Props) {
                         <Icon size='large' color='teal' name='bitcoin' />
                     </Grid.Column>
                     <Grid.Column width={10}>
-                        <p>Amount if you win: {activity.amountIfWon}</p>
+                        <p>Amount if you win: {activityStore.activity.amountifwon}</p>
                     </Grid.Column>
                 </Grid>
             </Segment>
@@ -27,7 +39,17 @@ export default observer(function ActivityDetailedInfo({ activity }: Props) {
                         <Icon size='large' color='teal' name='bitcoin' />
                     </Grid.Column>
                     <Grid.Column width={10}>
-                    <p>Amount if you loose: {activity.amountIfLose}</p>
+                        <p> Mandatory: {selectedActivity?.ismandatoryactivity}</p>
+                    </Grid.Column>
+                </Grid>
+            </Segment>
+            <Segment attached>
+                <Grid>
+                    <Grid.Column width={1}>
+                        <Icon size='large' color='teal' name='bitcoin' />
+                    </Grid.Column>
+                    <Grid.Column width={10}>
+                    <p>Amount if you loose: {selectedActivity?.amountiflose}</p>
                     </Grid.Column>
                 </Grid>
             </Segment>

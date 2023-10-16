@@ -8,17 +8,17 @@ export interface Activity {
     date: Date | null;
     city: string;
     venue: string;
+    options: string[];
+    winningOption: string;
+    amountifwon: number;
+    amountiflose: number;
+    ismandatoryactivity: boolean;
     hostUsername?: string;
     isCancelled?: boolean;
     isGoing?: boolean;
     isHost?: boolean
     attendees?: Profile[]
-    host?: Profile;
-    options: string[];
-    winningOption: string;
-    amountIfWon: number;
-    amountIfLose: number;
-    isMandatoryActivity: boolean;
+    host?: Profile;    
 }
 
 export class ActivityFormValues
@@ -32,8 +32,8 @@ export class ActivityFormValues
     venue: string = '';
     options: string[] = [];
     winningOption: string = '';
-    amountifwon: number = 0;
-    amountiflose: number =0;
+    amountifwon: number = 0 ;
+    amountiflose: number = 0;
     ismandatoryactivity: boolean = false;
 
 	  constructor(activity?: ActivityFormValues) {
@@ -56,7 +56,10 @@ export class ActivityFormValues
   }
 
   export class Activity implements Activity {
-    constructor(init?: ActivityFormValues) {
+    
+  constructor(init?: ActivityFormValues) {
+    if (init) {
       Object.assign(this, init);
     }
+  }
   }

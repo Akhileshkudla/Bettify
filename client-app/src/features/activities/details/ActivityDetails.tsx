@@ -6,7 +6,6 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ActivityDetailedHeader from './ActivityDetailedHeader';
 import ActivityDetailedInfo from './ActivityDetailedInfo';
-import ActivityDetailedChat from './ActivityDetailedChat';
 import ActivityDetailedSidebar from './ActivityDetailedSidebar';
 import ActivityDetailedAmountSideBar from './ActivityDetailedAmountSideBar';
 
@@ -27,7 +26,7 @@ export default observer( function ActivityDetails() {
             <Grid.Column width={10}>
                 <ActivityDetailedHeader activity={activity} />
                 <ActivityDetailedInfo activity={activity} />
-                <ActivityDetailedChat />
+                {/* <ActivityDetailedChat /> */}
             </Grid.Column>
             <Grid.Column width={6}>
                 <ActivityDetailedAmountSideBar activity={activity} />

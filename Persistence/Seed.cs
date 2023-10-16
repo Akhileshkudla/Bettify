@@ -43,6 +43,8 @@ namespace Persistence
                     await userManager.CreateAsync(user, "Pa$$w0rd");
                 }
 
+                
+
                 var activities = new List<Activity>
                 {
                     new Activity
@@ -171,7 +173,7 @@ namespace Persistence
                             new ActivityAttendee
                             {
                                 AppUser = users[0],
-                                IsHost = false                            
+                                IsHost = false
                             },
                         },
                         AmountIfLose = 100,
@@ -314,7 +316,7 @@ namespace Persistence
                         IsMandatoryActivity=true,
                         WinningOption="",
                         Options = new []{"SRI", "IND"}
-                    }
+                    } 
                 };
 
                 await context.Activities.AddRangeAsync(activities);

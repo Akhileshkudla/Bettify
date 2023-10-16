@@ -27,10 +27,10 @@ export default observer(function ActivityAmount() {
                         <Icon name='bitcoin' size='large' color='teal' />
                     </Grid.Column>
                     <Grid.Column width={8}>
-                        <p>Total amount collected: </p>
+                        <p>Party Fund balance: </p>
                     </Grid.Column>
                     <Grid.Column width={1}>
-                        <p>{userStore.user?.username}</p>
+                        <p>{userStore.users.reduce((total, user) => total + user.amount, 0)}</p>
                     </Grid.Column>
                 </Grid>
             </Segment>

@@ -8,12 +8,13 @@ import ActivityFilters from './ActivityFilters';
 import ActivityAmount from './ActivityAmount';
 
 export default observer( function ActvityDashboard() {
-    const {activityStore} = useStore();
+    const {activityStore, userStore : {getallusers}} = useStore();
     const { loadActivities, activityRegistry } = activityStore;
 
     useEffect(() => {
         if(activityRegistry.size <= 1) loadActivities();
-    }, [activityRegistry.size, loadActivities])  
+        getallusers();
+    }, [activityRegistry.size, loadActivities, getallusers])  
   
     if(activityStore.loadingInitial) return <LoadingComponent content='Loading activities...' />
 

@@ -27,9 +27,11 @@ public class Create
     {
         private readonly DataContext _context;
         private readonly IUserAccessor _userAccessor;
+        private readonly ITelegramService _telegramService;
 
-        public Handler(DataContext context, IUserAccessor userAccessor)
+        public Handler(DataContext context, IUserAccessor userAccessor, ITelegramService telegramService)
         {
+            _telegramService = telegramService;
             _context = context;
             _userAccessor = userAccessor;
         }
@@ -52,6 +54,7 @@ public class Create
 
             if(!result) return Result<Unit>.Failure("Failed to create activity");
 
+            await _telegramService.SendMessageAsync($"New activity {request.Activity.Title} created, Its time to bet ;)");
             return Result<Unit>.Sucess(Unit.Value);            
         }
     }

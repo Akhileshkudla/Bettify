@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers;
 
 public class ActivitiesController : BaseApiController
-{
+{    
     [HttpGet]
     public async Task<IActionResult> GetActivities()
     {
@@ -26,7 +26,7 @@ public class ActivitiesController : BaseApiController
         return HandleResults(await Mediator.Send(new Create.Command {Activity = activity}));
     }
 
-    [Authorize(Policy = "IsActivityHost")]
+    //[Authorize(Policy = "IsActivityHost")]
     [HttpPut("{id}")]
     public async Task<IActionResult> EditActivity(Guid id, Activity activity)
     {

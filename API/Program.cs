@@ -36,7 +36,12 @@ app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
+
 app.MapControllers();
+app.MapFallbackToController("Index", "FallBack");
 
 using var scope = app.Services.CreateScope();
 var serviceProvider = scope.ServiceProvider;

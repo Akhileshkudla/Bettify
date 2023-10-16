@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default observer(function ActivityDetailedInfo({ activity }: Props) {
-    const {userStore } = useStore()
+    const {userStore: {user}} = useStore();
     return (
         <Segment.Group>
             <Segment attached='top'>
@@ -18,7 +18,7 @@ export default observer(function ActivityDetailedInfo({ activity }: Props) {
                         <Icon size='large' color='teal' name='gem' />
                     </Grid.Column>
                     <Grid.Column width={15}>
-                        <p>You choose: {}</p>
+                        <p>You choose: {user?.displayName}</p>
                     </Grid.Column>
                 </Grid>
             </Segment>

@@ -37,6 +37,7 @@ export default observer (function UserForm() {
         <Table.Row>
           <Table.HeaderCell>Username</Table.HeaderCell>
           <Table.HeaderCell>Amount</Table.HeaderCell>
+          <Table.HeaderCell>Update user total amount</Table.HeaderCell>
           <Table.HeaderCell></Table.HeaderCell>
         </Table.Row>
       </Table.Header>
@@ -59,6 +60,8 @@ export default observer (function UserForm() {
                     />
                     <Label>.00</Label>
                 </Input>
+                </Table.Cell>
+                <Table.Cell>
                 <Button animated color='teal' onClick={() => handleSaveAmount(user.username)}>
                     <Button.Content visible >Save</Button.Content>
                     <Button.Content hidden>
