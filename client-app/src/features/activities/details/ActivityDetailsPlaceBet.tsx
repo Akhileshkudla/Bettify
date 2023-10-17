@@ -27,7 +27,7 @@ export default observer(function ActivityDetailsPlaceBet({ activity }: Props) {
       initialValues={{ selectedOption }}
       onSubmit={(values) => {
         console.log('Selected option:', values.selectedOption);
-        updateAttendance(values.selectedOption);
+        updateAttendance();
         console.log('Form submitted with selected option:', values.selectedOption);
       }}
     >
