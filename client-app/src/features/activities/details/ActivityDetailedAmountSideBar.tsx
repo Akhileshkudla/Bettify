@@ -1,10 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { Segment, Grid, Icon } from 'semantic-ui-react'
-import { Activity, ActivityFormValues } from "../../../app/models/activity";
+import { Activity } from "../../../app/models/activity";
 import { useStore } from '../../../app/stores/store';
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import ActivityStore from '../../../app/stores/activityStore';
 
 interface Props {
     activity: Activity
@@ -12,14 +9,7 @@ interface Props {
 
 
 export default observer(function ActivityDetailedInfo({ activity }: Props) {
-    const {userStore, activityStore : {loadActivity, selectedActivity}} = useStore();   
-
-    const [activity2, setActivity] = useState<ActivityFormValues>(new ActivityFormValues());
-    const { id } = useParams();
-
-    useEffect(() => {
-        if (id) loadActivity(id).then(activity => setActivity(new ActivityFormValues(activity)));
-    }, [id, loadActivity])
+    const {userStore} = useStore();   
 
     return (
         <Segment.Group>
@@ -29,7 +19,7 @@ export default observer(function ActivityDetailedInfo({ activity }: Props) {
                         <Icon size='large' color='teal' name='bitcoin' />
                     </Grid.Column>
                     <Grid.Column width={10}>
-                        <p>Amount if you win: {activityStore.activity.amountifwon}</p>
+                        <p>Amount if you win: {activity.amountifwon}</p>
                     </Grid.Column>
                 </Grid>
             </Segment>
@@ -39,7 +29,7 @@ export default observer(function ActivityDetailedInfo({ activity }: Props) {
                         <Icon size='large' color='teal' name='bitcoin' />
                     </Grid.Column>
                     <Grid.Column width={10}>
-                        <p> Mandatory: {selectedActivity?.ismandatoryactivity}</p>
+                        <p> Mandatory: {activity.ismandatoryactivity}</p>
                     </Grid.Column>
                 </Grid>
             </Segment>
@@ -49,7 +39,7 @@ export default observer(function ActivityDetailedInfo({ activity }: Props) {
                         <Icon size='large' color='teal' name='bitcoin' />
                     </Grid.Column>
                     <Grid.Column width={10}>
-                    <p>Amount if you loose: {selectedActivity?.amountiflose}</p>
+                    <p>Amount if you loose: {activity.amountiflose}</p>
                     </Grid.Column>
                 </Grid>
             </Segment>

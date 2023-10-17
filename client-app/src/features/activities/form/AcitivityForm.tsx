@@ -16,7 +16,7 @@ import { v4 as uuid } from 'uuid';
 import MyCheckBox from "./MyCheckBox";
 
 
-export default observer(function ActivityForm() {
+export default observer(function AcitivityForm() {
     
     const { activityStore } = useStore()
     const { updateActivity, createActivity, loadActivity, loadingInitial } = activityStore;

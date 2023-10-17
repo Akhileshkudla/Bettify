@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable } from "mobx"
 
 interface Modal {
     open: boolean;
@@ -11,11 +11,11 @@ export default class ModalStore {
         body: null
     }
 
-    constructor(){
+    constructor() {
         makeAutoObservable(this);
     }
 
-    openModal = (content: JSX.Element) =>{
+    openModal = (content: JSX.Element) => {
         this.modal.open = true;
         this.modal.body = content;
     }

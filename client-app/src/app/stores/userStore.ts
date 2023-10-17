@@ -1,6 +1,6 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import { User, UserFormValues } from "../models/user";
 import agent from "../api/agent";
+import { User, UserFormValues } from "../models/user";
 import { store } from "./store";
 import { router } from "../router/Route";
 
@@ -28,13 +28,26 @@ export default class UserStore {
         }
     }
 
+    register = async (creds: UserFormValues) => {
+        try {
+            const user = await agent.Account.register(creds);
+            store.commonStore.setToken(user.token);
+            runInAction(() => this.user = user);
+            router.navigate('/activities');
+            store.modalStore.closeModal();
+        } catch (error) {
+            throw error;
+        }
+    }
+
+
     logout = () => {
         store.commonStore.setToken(null);
-        runInAction(() => this.user = null);
+        this.user = null;
         router.navigate('/');
     }
 
-    getuser = async () => {
+    getUser = async () => {
         try {
             const user = await agent.Account.current();
             runInAction(() => this.user = user);
@@ -43,25 +56,24 @@ export default class UserStore {
         }
     }
 
+    setImage = (image: string) => {
+        if (this.user) this.user.image = image;
+    }
+
+    setUserPhoto = (url: string) => {
+        if (this.user) this.user.image = url;
+    }
+
+    setDisplayName = (name: string) => {
+        if (this.user) this.user.displayName = name;
+    }
+
     getallusers = async () => {
         try {
             const users = await agent.Account.users();
             runInAction(() => this.users = users);
         } catch (error) {
             console.log(error);            
-        }
-    }
-
-    register = async (creds: UserFormValues) => {
-        try {
-            const user = await agent.Account.register(creds);
-            store.commonStore.setToken(user.token);
-            runInAction(() => this.user = user);
-            router.navigate('/activities');
-            store.modalStore.closeModal();
-            console.log(user);
-        } catch (error) {
-            throw(error);
         }
     }
 

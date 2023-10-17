@@ -11,7 +11,7 @@ namespace Application.Activities
     {
         public class Command : IRequest<Result<Unit>>
         {
-            public Guid Id {get; set;}
+            public Guid Id { get; set; }
 
             public string ChosenOption { get; set; }
         }
@@ -20,12 +20,12 @@ namespace Application.Activities
         {
             private readonly DataContext _context;
             private readonly IUserAccessor _userAccessor;
-        private readonly ITelegramService _telegramService;
+            private readonly ITelegramService _telegramService;
             public Handler(DataContext context, IUserAccessor userAccessor, ITelegramService telegramService)
             {
-            _telegramService = telegramService;
+                _telegramService = telegramService;
                 _userAccessor = userAccessor;
-                _context = context;                
+                _context = context;
             }
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
@@ -34,29 +34,29 @@ namespace Application.Activities
                     .Include(a => a.Attendees).ThenInclude(u => u.AppUser)
                     .SingleOrDefaultAsync(x => x.Id == request.Id);
 
-                if(activity == null) return null;
+                if (activity == null) return null;
 
-                var user = await _context.Users.FirstOrDefaultAsync(x => 
+                var user = await _context.Users.FirstOrDefaultAsync(x =>
                     x.UserName == _userAccessor.GetUsername());
 
-                if(user == null) return null;
+                if (user == null) return null;
 
                 var hostUsername = activity.Attendees.FirstOrDefault(a => a.IsHost).AppUser.UserName;
 
                 var attendance = activity.Attendees.FirstOrDefault(x => x.AppUser.UserName == user.UserName);
 
-                if(attendance != null && hostUsername == user.UserName)
+                if (attendance != null && hostUsername == user.UserName)
                     activity.IsCancelled = !activity.IsCancelled;
 
                 string type = "cancelled";
-                
-                if(attendance != null && hostUsername != user.UserName)
-                    {
-                        activity.Attendees.Remove(attendance);
 
-                    }
+                if (attendance != null && hostUsername != user.UserName)
+                {
+                    activity.Attendees.Remove(attendance);
 
-                if(attendance == null)
+                }
+
+                if (attendance == null)
                 {
                     attendance = new ActivityAttendee
                     {
@@ -72,7 +72,7 @@ namespace Application.Activities
 
                 var result = await _context.SaveChangesAsync() > 0;
 
-                if(result) await _telegramService.SendMessageAsync($"{attendance.AppUser.DisplayName} {type} his bet.");
+                if (result) await _telegramService.SendMessageAsync($"{attendance.AppUser.DisplayName} {type} his bet.");
 
                 return result ? Result<Unit>.Sucess(Unit.Value) : Result<Unit>.Failure("Problem updating attendees");
             }
