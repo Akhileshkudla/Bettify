@@ -43,17 +43,29 @@ namespace Application.Activities
 
                 foreach (ActivityAttendee attendee in activity.Attendees)
                 {
-                    if(attendee.IsHost) continue; //Since for now only admin is Host! Should be removed later
+                    if(attendee.IsHost) continue; //TODO: Since for now only admin is Host! Should be removed later
+
+                    if(string.IsNullOrEmpty( attendee.ChosenOption))
+                    {
+                        int origAmount = attendee.AppUser.Amount;
+                        attendee.AppUser.Amount = activity.AmountIfLose * 2; //If did not vote, Double on the loosing side
+                        
+                        attendee.Message = $"Added {activity.AmountIfLose * 2} for cheating on activity {activity.Title}, Total now is {attendee.AppUser.Amount}";
+                        await _telegramService.SendMessageAsync($"User {attendee.AppUser.DisplayName}, "+ 
+                            $"You forgot to bet, Your total amount increased from {origAmount} to {attendee.AppUser.Amount}");
+                    }
 
                     if(attendee.ChosenOption != activity.WinningOption)
                     {
                         attendee.AppUser.Amount += activity.AmountIfLose;
+                        attendee.Message = $"Added {activity.AmountIfLose } for loosing bet on activity {activity.Title}, Total now is {attendee.AppUser.Amount}";
                         await _telegramService.SendMessageAsync($"User {attendee.AppUser.DisplayName}, "+ 
                             $"You lost the bet, Your total amount increased from {attendee.AppUser.Amount - activity.AmountIfLose} to {attendee.AppUser.Amount}");
                     }
                     else
                     {
                         attendee.AppUser.Amount += activity.AmountIfWon;
+                        attendee.Message = $"Added {activity.AmountIfWon } for winning bet on activity {activity.Title}, Total now is {attendee.AppUser.Amount}";
                         await _telegramService.SendMessageAsync($"User {attendee.AppUser.DisplayName}, "+ 
                             $"Congratulations, Your total amount changed from {attendee.AppUser.Amount - activity.AmountIfWon} to {attendee.AppUser.Amount}");
                     }

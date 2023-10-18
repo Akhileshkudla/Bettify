@@ -54,9 +54,13 @@ namespace API.Extensions
                 {
                     policy.Requirements.Add(new IsHostRequirement());
                 });
+                opt.AddPolicy("IsAdmin", policy => {
+                    policy.Requirements.Add(new IsAdminRequirement());
+                });
             });
 
             services.AddTransient<IAuthorizationHandler, IsHostRequirementHandler>();
+            services.AddTransient<IAuthorizationHandler, IsAdminRequirementHandler>();
             services.AddScoped<TokenService>();
 
             return services;

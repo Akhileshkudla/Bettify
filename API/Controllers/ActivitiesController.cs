@@ -18,16 +18,23 @@ public class ActivitiesController : BaseApiController
     [HttpGet("{id}")]
     public async Task<IActionResult> GetActivity(Guid id)
     {
-        return HandleResults(await Mediator.Send(new Details.Query{Id = id }));
+        return HandleResults(await Mediator.Send(new Details.Query{ Id = id }));
     }
 
+    [HttpGet("transactions/{username}")]
+    public async Task<IActionResult> GetAllTranscations(string username)
+    {
+        return HandleResults(await Mediator.Send(new TransactionDetails.Query{ Username = username }));
+    }
+
+    [Authorize(Policy = "IsAdmin")]
     [HttpPost]
     public async Task<IActionResult> CreateActivity(Activity activity)
     {
         return HandleResults(await Mediator.Send(new Create.Command {Activity = activity}));
     }
 
-    //[Authorize(Policy = "IsActivityHost")]
+    [Authorize(Policy = "IsAdmin")]
     [HttpPut("{id}")]
     public async Task<IActionResult> EditActivity(Guid id, Activity activity)
     {
@@ -48,6 +55,7 @@ public class ActivitiesController : BaseApiController
         return HandleResults(await Mediator.Send(new UpdateAttendance.Command{Id = id, ChosenOption = options.option}));
     }
 
+    [Authorize(Policy = "IsAdmin")]
     [HttpPost("{id}/setwinningteam")]
     public async Task<IActionResult> SetWinningTeam(Guid id, OptionsDto options)
     {

@@ -1,6 +1,6 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
-import { User, UserFormValues } from "../models/user";
+import { ChangePasswordValues, User, UserFormValues } from "../models/user";
 import { store } from "./store";
 import { router } from "../router/Route";
 
@@ -40,6 +40,14 @@ export default class UserStore {
         }
     }
 
+    changepassword = async (creds: ChangePasswordValues) => {
+        try {
+            await agent.Account.changepassword(creds);
+            store.modalStore.closeModal();
+        } catch (error) {
+            throw error;
+        }
+    }
 
     logout = () => {
         store.commonStore.setToken(null);

@@ -3,9 +3,10 @@ import { Link, NavLink } from 'react-router-dom';
 import { useStore } from '../stores/store';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
+import ChangePassword from './ChangePassword';
 
 export default observer(function NavBar() {
-    const {userStore: {user, logout, users, getallusers} } = useStore();
+    const {modalStore, userStore: {user, logout, users, getallusers} } = useStore();
 
     const totalAmount = users.reduce((total, user) => total + user.amount, 0);
 
@@ -25,7 +26,8 @@ export default observer(function NavBar() {
                 {/* <Menu.Item as={NavLink} to='/errors' name='Errors' />                 */}
                 {user!== null && user!.username === 'admin' && (
                     <Menu.Item as={NavLink} to='/users' name='Users' />
-                )}          
+                )}   
+                <Menu.Item as={NavLink} to='/transcations' name='Transactions' />       
                 <Menu.Item>
                     <Button 
                         as={NavLink} 
@@ -44,7 +46,7 @@ export default observer(function NavBar() {
                     <Dropdown pointing='top left' text={user?.displayName} >
                         <Dropdown.Menu>
                             <Dropdown.Item as={Link} to={`/profile/${user?.username}`} text="My Profile" icon='user' />
-                            <Dropdown.Item as={Link} to={`/changepassword`} text="Change Password" icon='key' />
+                            <Dropdown.Item onClick={ () => modalStore.openModal(<ChangePassword />)} text="Change Password" icon='key' />
                             <Dropdown.Item onClick={logout} text='Logout' icon='power' />
                         </Dropdown.Menu>
                     </Dropdown>

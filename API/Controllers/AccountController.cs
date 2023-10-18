@@ -73,6 +73,24 @@ public class AccountController : ControllerBase
         return BadRequest(result.Errors);
     }
 
+    [HttpPost("change-password")]
+    public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDto request)
+    {
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        var identityResult = await _userManager.ChangePasswordAsync(user, request.OldPassword, request.NewPassword);
+        if (!identityResult.Succeeded)
+        {
+            return BadRequest(identityResult.Errors);
+        }
+
+        return Ok();
+    }
+
     [HttpGet]
     public async Task<ActionResult<UserDto>> GetCurrentUser()
     {
@@ -91,6 +109,7 @@ public class AccountController : ControllerBase
         return userDtos;
     }
 
+    [Authorize(Policy = "IsAdmin")]
     [HttpPut("setamount")]
     public async Task<IActionResult> SetAmount(AmountDto amountDto)
     {
@@ -98,7 +117,7 @@ public class AccountController : ControllerBase
 
         if(user == null) return BadRequest("User not found");
 
-        user.Amount = amountDto.Amount;
+        user.Amount += amountDto.Amount;                
 
         var result = await _userManager.UpdateAsync(user);
 

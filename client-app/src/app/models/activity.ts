@@ -10,8 +10,8 @@ export interface Activity {
     venue: string;
     options: string[];
     winningOption: string;
-    amountifwon: number;
-    amountiflose: number;
+    amountIfWon: number;
+    amountIfLose: number;
     ismandatoryactivity: boolean;
     hostUsername?: string;
     isCancelled?: boolean;
@@ -32,8 +32,8 @@ export class ActivityFormValues
     venue: string = '';
     options: string[] = [];
     winningOption: string = '';
-    amountifwon: number = 0 ;
-    amountiflose: number = 0;
+    amountIfWon: number = 0 ;
+    amountIfLose: number = 0;
     ismandatoryactivity: boolean = false;
 
 	  constructor(activity?: ActivityFormValues) {
@@ -47,8 +47,8 @@ export class ActivityFormValues
         this.city = activity.city;
         this.options = activity.options;
         this.winningOption = activity.winningOption;
-        this.amountifwon = activity.amountifwon;
-        this.amountiflose = activity.amountiflose;
+        this.amountIfWon = activity.amountIfWon;
+        this.amountIfLose = activity.amountIfLose;
         this.ismandatoryactivity = activity.ismandatoryactivity;
       }
     }

@@ -9,7 +9,7 @@ interface Props {
 
 
 export default observer(function ActivityDetailedInfo({ activity }: Props) {
-    const {userStore} = useStore();   
+    const {userStore} = useStore();  
 
     return (
         <Segment.Group>
@@ -19,7 +19,7 @@ export default observer(function ActivityDetailedInfo({ activity }: Props) {
                         <Icon size='large' color='teal' name='bitcoin' />
                     </Grid.Column>
                     <Grid.Column width={10}>
-                        <p>Amount if you win: {activity.amountifwon}</p>
+                        <p>Amount if you win: {activity.amountIfLose}</p>
                     </Grid.Column>
                 </Grid>
             </Segment>
@@ -29,17 +29,7 @@ export default observer(function ActivityDetailedInfo({ activity }: Props) {
                         <Icon size='large' color='teal' name='bitcoin' />
                     </Grid.Column>
                     <Grid.Column width={10}>
-                    <p>Amount if you loose: {activity.amountiflose}</p>
-                    </Grid.Column>
-                </Grid>
-            </Segment>
-            <Segment>
-                <Grid verticalAlign='middle'>
-                    <Grid.Column width={1}>
-                        <Icon name='bitcoin' size='large' color='teal' />
-                    </Grid.Column>
-                    <Grid.Column width={10}>
-                        <p>Total amount you owe: {userStore.user?.amount}</p>
+                    <p>Amount if you loose: {activity.amountIfWon}</p>
                     </Grid.Column>
                 </Grid>
             </Segment>

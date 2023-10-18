@@ -13,3 +13,8 @@ export interface UserFormValues {
     username?: string;
 }
 
+export interface ChangePasswordValues {
+    oldPassword: string;
+    newPassword: string;
+}
+

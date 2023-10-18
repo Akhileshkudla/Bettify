@@ -28,6 +28,12 @@ namespace Infrastructure.Security
 
             if(userId == null) return Task.CompletedTask;
 
+            if(userId == "admin")  //If admin then always allow, I know its ugly! But no time :D
+            {
+                context.Succeed(requirement);
+                return Task.CompletedTask;
+            }
+
             var activityId = Guid.Parse(_httpContextAccessor.HttpContext?.Request.RouteValues.SingleOrDefault(x => x.Key == "id")
                 .Value?.ToString());
 

@@ -3,7 +3,7 @@ import { Activity, ActivityFormValues } from '../models/activity';
 import { toast } from 'react-toastify';
 import { router } from '../router/Route';
 import { store } from '../stores/store';
-import { User, UserFormValues } from '../models/user';
+import { ChangePasswordValues, User, UserFormValues } from '../models/user';
 import { Photo, Profile, UserActivity } from '../models/profile';
 import { PaginatedResult } from '../models/pagination';
 
@@ -94,6 +94,7 @@ const Account = {
     current: () => requests.get<User>('/account'),
     login: (user : UserFormValues) => requests.post<User>('/account/login', user),
     register: (user: UserFormValues) => requests.post<User>('/account/register', user),
+    changepassword: (cred: ChangePasswordValues) => requests.post('/account/change-password', cred),
     setamount: (username: string, amount: number) => requests.put<number>('/account/setamount', { amount, username }),
     users: () => requests.get<User[]>('/account/users')
 }
@@ -117,10 +118,15 @@ const Profiles = {
         requests.get<UserActivity[]>(`/profiles/${username}/activities?predicate=${predicate}`)
 }
 
+const Transaction = {
+    get: (username: string) => requests.get<string[]>(`activities/transactions/${username}`)
+}
+
 const agent = {
     Activities,
     Account,
-    Profiles
+    Profiles,
+    Transaction
 }
 
 export default agent;

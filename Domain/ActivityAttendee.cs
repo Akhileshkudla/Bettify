@@ -13,5 +13,7 @@ namespace Domain
         public bool IsHost { get; set; }
 
         public string ChosenOption { get; set; }
+
+        public string Message { get; set; }
     }
 }
