@@ -12,6 +12,7 @@ interface Props {
 export default observer(function ActivityDetailsPlaceBet({ activity }: Props) {
   const { activityStore: { updateAttendance } } = useStore();
   const [selectedOption, setSelectedOption] = useState<string>(activity.options[0]);
+  
 
   const handleButtonClick = (option: string) => {
     setSelectedOption(option);
@@ -28,6 +29,7 @@ export default observer(function ActivityDetailsPlaceBet({ activity }: Props) {
       onSubmit={(values) => {
         console.log('Selected option:', values.selectedOption);
         updateAttendance();
+
         console.log('Form submitted with selected option:', values.selectedOption);
       }}
     >

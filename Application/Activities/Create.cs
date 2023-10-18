@@ -54,7 +54,8 @@ public class Create
 
             if(!result) return Result<Unit>.Failure("Failed to create activity");
 
-            await _telegramService.SendMessageAsync($"New activity {request.Activity.Title} created, Its time to bet ;)");
+            await _telegramService.SendMessageAsync($"New activity {request.Activity.Title} created, Its time to bet."+
+            $" Head to https://bettify.azurewebsites.net/activities/{request.Activity.Id}");
             return Result<Unit>.Sucess(Unit.Value);            
         }
     }

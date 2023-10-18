@@ -18,7 +18,7 @@ export default observer(function ActivityDetailedInfo({ activity }: Props) {
                         <Icon size='large' color='teal' name='gem' />
                     </Grid.Column>
                     <Grid.Column width={15}>
-                        <p>You choose: {user?.displayName}</p>
+                        <p>You choose: {}</p>
                     </Grid.Column>
                 </Grid>
             </Segment>

@@ -209,6 +209,7 @@ export default class ActivityStore {
                     this.selectedActivity!.isGoing = true;
                 }
                 this.activityRegistry.set(this.selectedActivity!.id, this.selectedActivity!);
+                store.modalStore.closeModal()
             })
         } catch (error) {
             console.log(error);
@@ -225,6 +226,7 @@ export default class ActivityStore {
                 this.selectedActivity!.isCancelled = !this.selectedActivity!.isCancelled;
                 this.activityRegistry.set(this.selectedActivity!.id, this.selectedActivity!);
             })
+            store.modalStore.closeModal();
         } catch (error) {
             console.log(error);
         } finally {

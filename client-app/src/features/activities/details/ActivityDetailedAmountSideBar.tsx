@@ -29,16 +29,6 @@ export default observer(function ActivityDetailedInfo({ activity }: Props) {
                         <Icon size='large' color='teal' name='bitcoin' />
                     </Grid.Column>
                     <Grid.Column width={10}>
-                        <p> Mandatory: {activity.ismandatoryactivity}</p>
-                    </Grid.Column>
-                </Grid>
-            </Segment>
-            <Segment attached>
-                <Grid>
-                    <Grid.Column width={1}>
-                        <Icon size='large' color='teal' name='bitcoin' />
-                    </Grid.Column>
-                    <Grid.Column width={10}>
                     <p>Amount if you loose: {activity.amountiflose}</p>
                     </Grid.Column>
                 </Grid>
