@@ -77,9 +77,9 @@ export default observer(function AcitivityForm() {
                         <Header content='Location Details' sub color="teal" />
                         <MyTextInput placeholder='City' name='city' />
                         <MyTextInput placeholder='Venue' name='venue' />
-                        <MyTextInput label="Bet win amount" placeholder='Bet win amount' name='amountifwon' />
-                        <MyTextInput label="Bet lose amount" placeholder='Bet lose amount' name='amountiflose' />
-                        <MyCheckBox label="Is Mandatory?" placeholder="Is Mandatory" name='ismandatoryactivity' />
+                        <MyTextInput label="Bet win amount" placeholder='Bet win amount' name='amountIfWon' />
+                        <MyTextInput label="Bet lose amount" placeholder='Bet lose amount' name='amountIfLose' />
+                        <MyCheckBox label="Is Mandatory?" placeholder="Is Mandatory" name='isMandatoryActivity' />
                         <Header content='Options' sub color="teal" />
                         <FieldArray name="options">
                             {(arrayHelpers) => (

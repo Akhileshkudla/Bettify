@@ -21,8 +21,8 @@ export default observer(function ActivityFilters() {
                 />
                 <Menu.Item
                     content="Non Participating Bets"
-                    active={predicate.has('isHost') !== true}
-                    onClick={() => setPredicate('isHost', 'true')}
+                    active={predicate.has('isGoing')}
+                    onClick={() => setPredicate('isGoing', 'false')}
                 />
             </Menu>
             <Header />

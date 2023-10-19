@@ -20,7 +20,7 @@ export default function ChangePassword() {
     newPassword: Yup.string().required('New password is required'),
   });
 
-  const handleSubmit = (values: any, { setSubmitting, setErrors }: any) => {
+  const handleSubmit = (values: any, { setSubmitting }: any) => {
     // Handle form submission, e.g., make an API call to update the password
     console.log('Form submitted with values:', values);
     // Add your logic to handle password change here

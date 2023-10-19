@@ -2,14 +2,13 @@ import { format } from 'date-fns';
 import { observer } from 'mobx-react-lite';
 import { Segment, Grid, Icon } from 'semantic-ui-react'
 import { Activity } from "../../../app/models/activity";
-import { useStore } from '../../../app/stores/store';
 
 interface Props {
     activity: Activity
 }
 
 export default observer(function ActivityDetailedInfo({ activity }: Props) {
-    const {userStore: {user}} = useStore();
+    
     return (
         <Segment.Group>
             <Segment attached='top'>

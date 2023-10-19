@@ -12,7 +12,7 @@ export interface Activity {
     winningOption: string;
     amountIfWon: number;
     amountIfLose: number;
-    ismandatoryactivity: boolean;
+    isMandatoryActivity: boolean;
     hostUsername?: string;
     isCancelled?: boolean;
     isGoing?: boolean;
@@ -34,7 +34,7 @@ export class ActivityFormValues
     winningOption: string = '';
     amountIfWon: number = 0 ;
     amountIfLose: number = 0;
-    ismandatoryactivity: boolean = false;
+    isMandatoryActivity: boolean = false;
 
 	  constructor(activity?: ActivityFormValues) {
       if (activity) {
@@ -49,7 +49,7 @@ export class ActivityFormValues
         this.winningOption = activity.winningOption;
         this.amountIfWon = activity.amountIfWon;
         this.amountIfLose = activity.amountIfLose;
-        this.ismandatoryactivity = activity.ismandatoryactivity;
+        this.isMandatoryActivity = activity.isMandatoryActivity;
       }
     }
 

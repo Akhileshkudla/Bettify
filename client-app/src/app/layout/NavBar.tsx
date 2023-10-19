@@ -38,7 +38,7 @@ export default observer(function NavBar() {
                     />                    
                 </Menu.Item>
                 <Menu.Item position='right'>
-                    <Icon name='bitcoin'></Icon>
+                    <Icon name='inr'></Icon>
                     Party Fund Total: ₹{totalAmount} 
                 </Menu.Item>
                 <Menu.Item position='right'>

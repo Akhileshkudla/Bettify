@@ -16,6 +16,9 @@ export default function ActivityListItem({activity} : Props){
                 {activity.isCancelled && 
                     <Label attached="top" color="red" content='Completed' style={{textAlign: 'center'}} />
                 }
+                {activity.isMandatoryActivity &&
+                    <Label style={{position : 'absolute', zIndex: 1000, right: -14, top: 20}} tag color='teal' content='Mandatory' />
+                }
                 <Item.Group>
                     <Item>
                         <Item.Image style={{marginBottom: 5}} size='tiny' circular src='/assets/cup.png' />
