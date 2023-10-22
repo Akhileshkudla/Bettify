@@ -40,7 +40,7 @@ export default observer (function TranscationForm() {
       </Table>
     </Segment>
       <Label content="Find the older (WhatsApp) calculations as below:" />
-      <Image alt='Data' src={'/assets/oldData.png'} />
+      <Image  alt='Data' src={'https://res.cloudinary.com/dtpzeuru1/image/upload/v1698012653/hpqae9fjzy6jau77ay5d.png'} />
     </>
   );
 })
