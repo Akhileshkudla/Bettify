@@ -27,7 +27,7 @@ export default observer(function NavBar() {
                 {user!== null && user!.username === 'admin' && (
                     <Menu.Item as={NavLink} to='/users' name='Users' />
                 )}   
-                <Menu.Item as={NavLink} to='/transcations' name='Transactions' />       
+                <Menu.Item as={NavLink} to='/leaderboard' name='Leaderboard' icon='thropy' />       
                 <Menu.Item>
                     <Button 
                         as={NavLink} 
@@ -47,6 +47,7 @@ export default observer(function NavBar() {
                         <Dropdown.Menu>
                             <Dropdown.Item as={Link} to={`/profile/${user?.username}`} text="My Profile" icon='user' />
                             <Dropdown.Item onClick={ () => modalStore.openModal(<ChangePassword />)} text="Change Password" icon='key' />
+                            <Dropdown.Item as={NavLink} to='/transcations' text="Transactions" icon='send' />
                             <Dropdown.Item onClick={logout} text='Logout' icon='power' />
                         </Dropdown.Menu>
                     </Dropdown>

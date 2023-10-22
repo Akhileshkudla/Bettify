@@ -11,6 +11,7 @@ import UsersForm from "../../features/users/UsersForm";
 import ChangePassword from "../layout/ChangePassword";
 import AcitivityForm from "../../features/activities/form/AcitivityForm";
 import TransactionForm from "../../features/users/TransactionForm";
+import Leaderboard from "../../features/users/Leaderboard";
 
 export const routes: RouteObject[] = [
     {
@@ -25,6 +26,7 @@ export const routes: RouteObject[] = [
                 {path: 'profile/:username', element: <ProfilePage />},
                 {path: 'errors', element: <TestErrors />},              
                 {path: 'users', element: <UsersForm />},
+                {path: 'leaderboard', element: <Leaderboard />},
                 {path: 'transcations', element: <TransactionForm />},
                 {path: 'changepassword', element: <ChangePassword />},
             ]},

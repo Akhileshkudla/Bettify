@@ -121,7 +121,7 @@ public class AccountController : ControllerBase
     {
         List<AppUser> user = await _userManager.Users.ToListAsync();
         List<UserDto> userDtos = new List<UserDto>(); 
-        user.ForEach(x => userDtos.Add(CreateUserObject(x).Value));
+        user.ForEach(x => userDtos.Add(CreateUserObject(x, false).Value));
         return userDtos;
     }
 
@@ -148,13 +148,13 @@ public class AccountController : ControllerBase
     }
    
 
-    private ActionResult<UserDto> CreateUserObject(AppUser user)
+    private ActionResult<UserDto> CreateUserObject(AppUser user, bool isTokenReq = true)
     {
         return new UserDto
         {
             DisplayName = user.DisplayName,
             Image = user?.Photos?.FirstOrDefault(x => x.IsMain)?.Url,
-            Token = _tokenService.CreateToken(user),
+            Token = isTokenReq ? _tokenService.CreateToken(user) : "",
             Username = user.UserName,
             Amount = user.Amount
         };
