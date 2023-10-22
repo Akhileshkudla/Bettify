@@ -9,6 +9,7 @@ export interface Profile {
     followingCount: number;
     following: boolean;
     photos?: Photo[]
+    choosenOption : string;
 }
 
 export class Profile implements Profile {

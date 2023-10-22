@@ -91,7 +91,7 @@ export default observer (function ActivityDetailedHeader({activity}: Props) {
                     </>
                     
                 ) : activity.isGoing ? (
-                    <Button disabled={isButtonDisabled} onClick={() => updateAttendance()}>Clear selection</Button>
+                    <Button disabled={isButtonDisabled} onClick={() => updateAttendance("")}>Clear selection</Button>
                 ) : (
                     <Button animated disabled={isButtonDisabled} onClick={ () => modalStore.openModal(<ActivityDetailsPlaceBet activity={activity}/>)} color='facebook'>
                         <Button.Content visible>Place bet</Button.Content>

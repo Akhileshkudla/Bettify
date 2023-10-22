@@ -10,17 +10,7 @@ interface Props {
 export default observer(function ActivityDetailedInfo({ activity }: Props) {
     
     return (
-        <Segment.Group>
-            <Segment attached='top'>
-                <Grid>
-                    <Grid.Column width={1}>
-                        <Icon size='large' color='teal' name='gem' />
-                    </Grid.Column>
-                    <Grid.Column width={15}>
-                        <p>You choose: {}</p>
-                    </Grid.Column>
-                </Grid>
-            </Segment>
+        <Segment.Group>            
             <Segment attached>
                 <Grid>
                     <Grid.Column width={1}>

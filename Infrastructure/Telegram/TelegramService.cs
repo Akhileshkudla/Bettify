@@ -31,7 +31,7 @@ public class TelegramService : ITelegramService
     {
         try
         {   
-            await telegramBotClient.SendTextMessageAsync(_channelId,  msg);
+            //await telegramBotClient.SendTextMessageAsync(_channelId,  msg);
         }
         catch (Exception ex)
         {
