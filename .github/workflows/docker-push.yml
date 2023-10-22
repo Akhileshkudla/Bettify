@@ -24,8 +24,7 @@ jobs:
         with:
           push: true
           tags: akhikudla/bettify:latest
-          
-      
+
   deploy:
     needs: docker
     name: Deploy app
@@ -38,7 +37,7 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}          
       -
         name: Deploy to Azure App Service
-        uses: azure/webapps-deploy@v4
+        uses: azure/webapps-deploy@v2
         with:
           app-name: bettify
           resource-group: Bettify
