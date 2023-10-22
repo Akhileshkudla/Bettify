@@ -6,6 +6,7 @@ import { store } from '../stores/store';
 import { ChangePasswordValues, User, UserFormValues } from '../models/user';
 import { Photo, Profile, UserActivity } from '../models/profile';
 import { PaginatedResult } from '../models/pagination';
+import { Transcations } from '../models/transcations';
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -119,7 +120,7 @@ const Profiles = {
 }
 
 const Transaction = {
-    get: (username: string) => requests.get<string[]>(`activities/transactions/${username}`)
+    get: (username: string) => requests.get<Transcations []>(`transaction/${username}`)
 }
 
 const agent = {

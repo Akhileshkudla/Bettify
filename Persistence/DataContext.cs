@@ -20,6 +20,8 @@ public class DataContext : IdentityDbContext<AppUser>
     public DbSet<Comment> Comments { get; set; }
     public DbSet<UserFollowing> UserFollowings { get; set; }
 
+    public DbSet<Transaction> Transactions { get; set; }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
@@ -58,6 +60,12 @@ public class DataContext : IdentityDbContext<AppUser>
                 .HasForeignKey(t => t.TargetId)
                 .OnDelete(DeleteBehavior.Cascade);
         });
+
+        builder.Entity<Transaction>()
+            .HasOne(t => t.TransactionUser)
+            .WithMany(u => u.Transactions)
+            .HasForeignKey(t => t.TransactionUserId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 
 

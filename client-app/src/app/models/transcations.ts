@@ -1,3 +1,11 @@
+import { User } from "./user";
+
 export interface Transcations {
-    messages : string [];
+    id: string,
+    date: Date | null,
+    name: string,
+    amount: number,
+    message: string,
+    transactionUser: User | null,
+    transactionUserId: string
 }

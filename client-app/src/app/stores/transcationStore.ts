@@ -4,7 +4,7 @@ import { Transcations } from "../models/transcations";
 import agent from "../api/agent";
 
 export default class TranscationStore {
-    transcation: Transcations = { messages: [] };
+    transcations: Transcations [] = [];
 
     constructor() {
         makeAutoObservable(this);
@@ -12,8 +12,8 @@ export default class TranscationStore {
 
     getTransaction = async () => {
         try {
-            const transcation = await agent.Transaction.get(store.userStore.user?.username!);
-            runInAction(() => this.transcation.messages = transcation);
+            const transcations = await agent.Transaction.get(store.userStore.user?.username!);
+            runInAction(() => this.transcations = transcations);
         } catch (error) {
             console.log(error);
         }

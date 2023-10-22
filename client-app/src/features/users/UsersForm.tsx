@@ -37,7 +37,7 @@ export default observer (function UserForm() {
         <Table.Row>
           <Table.HeaderCell>Username</Table.HeaderCell>
           <Table.HeaderCell>Amount</Table.HeaderCell>
-          <Table.HeaderCell>Update user total amount</Table.HeaderCell>
+          <Table.HeaderCell>Update user total amount, The amount mentioned will be added to existing total</Table.HeaderCell>
           <Table.HeaderCell></Table.HeaderCell>
         </Table.Row>
       </Table.Header>

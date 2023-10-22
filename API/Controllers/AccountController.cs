@@ -91,6 +91,22 @@ public class AccountController : ControllerBase
         return Ok();
     }
 
+    [Authorize(Policy = "IsAdmin")]
+    [HttpPost("delete")]
+    public async Task<IActionResult> DeleteUser([FromBody] AmountDto amountDto)
+    {
+        var user = await _userManager.Users.FirstOrDefaultAsync(u => u.UserName == amountDto.Username);
+
+        var identityResult = await _userManager.DeleteAsync(user);
+
+        if (!identityResult.Succeeded)
+        {
+            return BadRequest(identityResult.Errors);
+        }
+
+        return Ok();
+    }
+
     [HttpGet]
     public async Task<ActionResult<UserDto>> GetCurrentUser()
     {

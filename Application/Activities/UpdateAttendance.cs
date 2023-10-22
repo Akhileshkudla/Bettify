@@ -72,7 +72,7 @@ namespace Application.Activities
 
                 var result = await _context.SaveChangesAsync() > 0;
 
-                if (result) await _telegramService.SendMessageAsync($"{attendance.AppUser.DisplayName} {type} his bet.");
+                if (result) await _telegramService.SendMessageAsync($"{attendance.AppUser.DisplayName} {type} their bet on {attendance.ChosenOption}.");
 
                 return result ? Result<Unit>.Sucess(Unit.Value) : Result<Unit>.Failure("Problem updating attendees");
             }

@@ -1,34 +1,39 @@
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
-import { Header, Table } from 'semantic-ui-react';
+import { Table } from 'semantic-ui-react';
 import { useStore } from '../../app/stores/store';
+import { format } from 'date-fns';
 
 
 export default observer (function TranscationForm() {
-    const {transactionStore} = useStore();
-    const {transcation : {messages}} = transactionStore;
+    const { transactionStore } = useStore();
+    const { transcations } = transactionStore;
 
     useEffect(() =>{
         transactionStore.getTransaction();
     }, [transactionStore])
 
-  const messageList = Array.isArray(messages) ? messages : [messages];
-
   return (
     <Table celled>
       <Table.Header>
         <Table.Row>
-          <Table.HeaderCell>Transactions</Table.HeaderCell>
+          <Table.HeaderCell>ID</Table.HeaderCell>
+          <Table.HeaderCell>Date</Table.HeaderCell>
+          <Table.HeaderCell>Name</Table.HeaderCell>
+          <Table.HeaderCell>Amount</Table.HeaderCell>
+          <Table.HeaderCell>Message</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {messageList.filter(activity => activity).map((activity, index) => (
-          <Table.Row key={index}>
-            <Table.Cell>
-              <Header.Content>
-                {activity}
-              </Header.Content>
-            </Table.Cell>
+        {transcations.map((transaction) => (
+          <Table.Row key={transaction.id}>
+            <Table.Cell>{transaction.id}</Table.Cell>
+            <Table.Cell>{
+               format(new Date(transaction.date!), 'dd MMM yyyy h:mm aa')
+            }</Table.Cell>
+            <Table.Cell>{transaction.name}</Table.Cell>
+            <Table.Cell>{transaction.amount}</Table.Cell>
+            <Table.Cell>{transaction.message}</Table.Cell>
           </Table.Row>
         ))}
       </Table.Body>
