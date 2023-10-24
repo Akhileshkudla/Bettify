@@ -28,9 +28,6 @@ export const options = {
     bar: {
       borderWidth: 2,
       radius: 5,
-      width: 2,
-      height: 2,
-      barPercentage: 0.8,
     },
   },
   responsive: true,
@@ -49,16 +46,6 @@ export const options = {
           top: 15,
           bottom: 15
       }
-    },
-  },
-  scales: {
-    y: {
-      ticks: {
-        font: {
-          size: 16, // Adjust the font size here
-          family: 'Public Sans, sans-serif',
-        },
-      },
     },
   },
 };
