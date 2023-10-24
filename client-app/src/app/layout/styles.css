@@ -44,6 +44,13 @@ body {
     font-size: 1.7em;
     font-weight: normal;
   }
+
+  canvas {
+    display: line;
+    max-width: 100%;
+    margin: 60px auto;
+  }
+
   
   /*end home page styles*/
   
