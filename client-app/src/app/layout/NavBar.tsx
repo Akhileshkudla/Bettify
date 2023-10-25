@@ -22,21 +22,23 @@ export default observer(function NavBar() {
                     <img src='/assets/logo2.png' alt='logo' style={{marginRight: 10}} />
                     Bettify
                 </Menu.Item>
-                <Menu.Item as={NavLink} to='/activities' name='Actvities' />
+                <Menu.Item as={NavLink} to='/activities' name='Actvities' icon='gamepad' />
                 {/* <Menu.Item as={NavLink} to='/errors' name='Errors' />                 */}
                 {user!== null && user!.username === 'admin' && (
                     <Menu.Item as={NavLink} to='/users' name='Users' />
                 )}   
-                <Menu.Item as={NavLink} to='/leaderboard' name='Leaderboard' icon='thropy' />       
-                <Menu.Item>
-                    <Button 
+                <Menu.Item as={NavLink} to='/leaderboard' name='Leaderboard' icon='trophy' />       
+                {user?.username === 'admin' &&
+                <Menu.Item>                
+                    <Button                     
                         as={NavLink} 
                         to='/createActivity' 
                         positive 
                         content='Create Activity'
                         disabled={user?.username !== 'admin'}
-                    />                    
+                    />  
                 </Menu.Item>
+                }
                 <Menu.Item position='right'>
                     <Icon name='inr'></Icon>
                     Party Fund Total: ₹{totalAmount} 

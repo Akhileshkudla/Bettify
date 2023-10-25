@@ -37,7 +37,7 @@ export default observer(function ActivityDetailedSidebar({ activity: { attendees
                             <Image size='tiny' src={attendee.image} />
                             <Item.Content verticalAlign='middle'>
                                 <Item.Header as='h3'>
-                                    <Link to={`/profiles/${attendee.username}`}>{attendee.displayName}</Link>
+                                    <Link to={`/profile/${attendee.username}`}>{attendee.displayName}</Link>
                                 </Item.Header>
                                 {attendee.username !== host?.username &&
                                     <Item.Extra style={{ color: 'orange' }}>Bet placed on {attendee.choosenOption}</Item.Extra>

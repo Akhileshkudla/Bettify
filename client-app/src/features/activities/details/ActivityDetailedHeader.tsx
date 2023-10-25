@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import {Button, Header, Item, Segment, Image, Label, Icon} from 'semantic-ui-react'
+import {Button, Header, Item, Segment, Image, Label, Icon, Popup} from 'semantic-ui-react'
 import {Activity} from "../../../app/models/activity";
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
@@ -70,37 +70,46 @@ export default observer (function ActivityDetailedHeader({activity}: Props) {
                     </Item.Group>
                 </Segment>
             </Segment>
-            <Segment clearing attached='bottom'>
-                {activity.isHost ? (
-                    <>
-                        <Button 
-                            color={activity.isCancelled ? "green" : 'red'}
-                            floated='left'
-                            basic
-                            content={activity.isCancelled ? 'Re-activate event' :'Complete event'}
-                            onClick={ () => {
-                                modalStore.openModal(<ActivityDetailsWinningBet 
-                                                                    activitiesOptions={activity.options} 
-                                                                />)
-                                {cancelActivityToggle}
-                                                            }}
-                        />
-                        <Button as={Link} to={`/manage/${activity.id}`} color='orange' floated='right' >
-                            Manage event
-                        </Button>
-                    </>
-                    
-                ) : activity.isGoing ? (
-                    <Button disabled={isButtonDisabled} onClick={() => updateAttendance("")}>Clear selection</Button>
-                ) : (
-                    <Button animated disabled={isButtonDisabled} onClick={ () => modalStore.openModal(<ActivityDetailsPlaceBet activity={activity}/>)} color='facebook'>
-                        <Button.Content visible>Place bet</Button.Content>
-                        <Button.Content hidden>
-                            <Icon name='arrow right' />
-                        </Button.Content>
-                    </Button>                    
-                )}                
-            </Segment>
+            <Popup
+                trigger={
+                <Segment clearing attached='bottom'>
+                    {activity.isHost ? (
+                        <>
+                        
+                                <Button 
+                                    color={activity.isCancelled ? "green" : 'red'}
+                                    floated='left'
+                                    basic
+                                    content={activity.isCancelled ? 'Re-activate event' :'Complete event'}
+                                    onClick={ () => {
+                                        modalStore.openModal(<ActivityDetailsWinningBet 
+                                                                            activitiesOptions={activity.options} 
+                                                                        />)
+                                        {cancelActivityToggle}
+                                    }}
+                                />
+                            <Button as={Link} to={`/manage/${activity.id}`} color='orange' floated='right' >
+                                Manage event
+                            </Button>
+                        </>
+                        
+                    ) : activity.isGoing ? (
+                        
+                                <Button disabled={isButtonDisabled} onClick={() => updateAttendance("")}>Clear selection</Button>
+                            
+                    ) : (
+                        <Button animated disabled={isButtonDisabled} onClick={ () => modalStore.openModal(<ActivityDetailsPlaceBet activity={activity}/>)} color='facebook'>
+                            <Button.Content visible>Place bet</Button.Content>
+                            <Button.Content hidden>
+                                <Icon name='arrow right' />
+                            </Button.Content>
+                        </Button>                    
+                    )}                
+                </Segment>
+            }
+            content={ 'Voting will be closed by ' + format(activity.date!, 'dd MMM yyyy h:mm aa')}
+            basic
+        />
         </Segment.Group>
     )
 })
