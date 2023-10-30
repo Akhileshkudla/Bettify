@@ -51,7 +51,7 @@ namespace Application.Activities
                         AppUser = user,
                         Activity = activity,
                         IsHost = false,
-                        ChosenOption = "",                        
+                        ChosenOption = "Forgot to bet",                        
                     };
 
                     activity.Attendees.Add(attendance);
@@ -63,7 +63,7 @@ namespace Application.Activities
                 {
                     if(attendee.IsHost) continue; //TODO: Since for now only admin is Host! Should be removed later
 
-                    if(string.IsNullOrEmpty( attendee.ChosenOption))
+                    if(string.IsNullOrEmpty( attendee.ChosenOption) || attendee.ChosenOption == "Forgot to bet")
                     {
                         int origAmount = attendee.AppUser.Amount;
                         attendee.AppUser.Amount = origAmount + activity.AmountIfLose * 2; //If did not vote, Double on the loosing side

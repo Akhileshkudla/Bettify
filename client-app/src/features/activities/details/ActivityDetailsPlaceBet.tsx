@@ -16,7 +16,6 @@ export default observer(function ActivityDetailsPlaceBet({ activity }: Props) {
 
   const handleButtonClick = (option: string) => {
     setSelectedOption(option);
-    console.log('Selected option:', option);
   };
 
   useEffect(() => {
@@ -27,9 +26,7 @@ export default observer(function ActivityDetailsPlaceBet({ activity }: Props) {
     <Formik
       initialValues={{ selectedOption }}
       onSubmit={(values) => {
-        console.log('Selected option:', values.selectedOption);
         updateAttendance(values.selectedOption);
-        console.log('Form submitted with selected option:', values.selectedOption);
       }}
     >
       {({ handleSubmit, isSubmitting, isValid, setFieldValue }) => (

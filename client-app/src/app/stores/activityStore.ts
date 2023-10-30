@@ -199,7 +199,6 @@ export default class ActivityStore {
         const user = store.userStore.user;
         this.loading = true;
         try {
-            console.log("I got ", option);
             await agent.Activities.attend(this.selectedActivity!.id, option);
             runInAction(() => {
                 if (this.selectedActivity?.isGoing) {
@@ -207,6 +206,7 @@ export default class ActivityStore {
                     this.selectedActivity.isGoing = false;
                 } else {
                     const attendee = new Profile(user!);
+                    attendee.choosenOption = option;
                     this.selectedActivity?.attendees?.push(attendee);
                     this.selectedActivity!.isGoing = true;
                 }
