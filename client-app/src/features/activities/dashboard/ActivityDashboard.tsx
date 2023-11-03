@@ -1,4 +1,4 @@
-import { Grid, Loader } from 'semantic-ui-react';
+import { Grid, Loader, Image } from 'semantic-ui-react';
 import ActivityList from './ActivityList';
 import { useStore } from '../../../app/stores/store';
 import { observer } from 'mobx-react-lite';
@@ -28,6 +28,7 @@ export default observer( function ActvityDashboard() {
     return(
         <Grid>
             <Grid.Column width={'10'}>
+            <Image  alt='Data' src={'https://res.cloudinary.com/dtpzeuru1/image/upload/v1698993912/xscr5bsiesogulxebfww.jpg'} />
                 {activityStore.loadingInitial && !loadingNext ? (
                     <>
                         <ActivityListItemPlaceholder />
