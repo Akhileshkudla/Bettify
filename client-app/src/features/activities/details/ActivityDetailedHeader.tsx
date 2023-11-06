@@ -41,6 +41,7 @@ export default observer (function ActivityDetailedHeader({activity}: Props) {
         }
       }, [activity.date, activity.isCancelled]);
 
+      const labelContent = activity.isMandatoryActivity ? "Mandatory" : "Optional";
       
     return (
         <Segment.Group>
@@ -48,8 +49,8 @@ export default observer (function ActivityDetailedHeader({activity}: Props) {
                 {activity.isCancelled &&
                     <Label style={{position : 'absolute', zIndex: 1000, left: -14, top: 20}} ribbon color='red' content='Completed' />
                 }
-                {activity.isMandatoryActivity &&
-                    <Label style={{position : 'absolute', zIndex: 1000, left: -14, top: 60}} ribbon color='purple' content='Mandatory' />
+                {
+                    <Label style={{position : 'absolute', zIndex: 1000, left: -14, top: 60}} ribbon color='purple' content={labelContent} />
                 }
                 <Image src={`/assets/categoryImages/${activity.category.toLowerCase()}.jpg`} fluid style={activityImageStyle}/>
                 <Segment style={activityImageTextStyle} basic>
