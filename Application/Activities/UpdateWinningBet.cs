@@ -63,7 +63,7 @@ namespace Application.Activities
                 {
                     if(attendee.IsHost) continue; //TODO: Since for now only admin is Host! Should be removed later
 
-                    if(string.IsNullOrEmpty( attendee.ChosenOption) || attendee.ChosenOption == "Forgot to bet")
+                    if((string.IsNullOrEmpty( attendee.ChosenOption) || attendee.ChosenOption == "Forgot to bet") && activity.IsMandatoryActivity)
                     {
                         int origAmount = attendee.AppUser.Amount;
                         attendee.AppUser.Amount = origAmount + activity.AmountIfLose * 2; //If did not vote, Double on the loosing side
@@ -81,7 +81,7 @@ namespace Application.Activities
                         await _telegramService.SendMessageAsync($"User {attendee.AppUser.DisplayName}, "+ 
                             $"You lost the bet, Your total amount increased from {attendee.AppUser.Amount - activity.AmountIfLose} to {attendee.AppUser.Amount}");
                     }
-                    else
+                    else if(attendee.ChosenOption == activity.WinningOption)
                     {
                         attendee.AppUser.Amount += activity.AmountIfWon;
                         AddTrnsactionToUser(attendee.AppUser.Id, activity.AmountIfWon, $"Chosen option: {attendee.ChosenOption}", $"Won bet on {activity.Title}");
