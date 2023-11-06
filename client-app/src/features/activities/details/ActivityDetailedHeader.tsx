@@ -51,7 +51,7 @@ export default observer (function ActivityDetailedHeader({activity}: Props) {
                 {activity.isMandatoryActivity &&
                     <Label style={{position : 'absolute', zIndex: 1000, left: -14, top: 60}} ribbon color='purple' content='Mandatory' />
                 }
-                <Image src={`/assets/categoryImages/${activity.category}.jpg`} fluid style={activityImageStyle}/>
+                <Image src={`/assets/categoryImages/${activity.category.toLowerCase()}.jpg`} fluid style={activityImageStyle}/>
                 <Segment style={activityImageTextStyle} basic>
                     <Item.Group>
                         <Item>
